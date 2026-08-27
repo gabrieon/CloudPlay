@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import coil.compose.AsyncImage
+import coil3.compose.AsyncImage
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.lagradost.cloudstream3.SearchResponse
 import com.lagradost.cloudstream3.LoadResponse
@@ -29,6 +29,10 @@ import com.lagradost.cloudstream3.ui.search.SEARCH_ACTION_LOAD
 import com.lagradost.cloudstream3.ui.search.SEARCH_ACTION_PLAY_FILE
 import com.lagradost.cloudstream3.ui.search.SearchClickCallback
 import com.lagradost.cloudstream3.ui.search.SearchHelper
+import com.lagradost.cloudstream3.ui.home.HomeFragment.Companion.loadHomepageList
+import com.lagradost.cloudstream3.ui.home.HomeFragment.Companion.selectHomepage
+import com.lagradost.cloudstream3.ui.account.AccountHelper.showAccountSelectLinear
+import com.lagradost.cloudstream3.ui.result.ResultData
 import com.lagradost.cloudstream3.utils.UIHelper
 
 class HomeComposeFragment : Fragment() {
@@ -39,9 +43,7 @@ class HomeComposeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Local mutable states that will be updated from LiveData observers below
         val pageState = mutableStateOf<Resource<Map<String, HomeViewModel.ExpandableHomepageList>>>(Resource.Loading())
-        val previewState = mutableStateOf<Resource<Pair<Boolean, List<LoadResponse>>?>(null)
-
-        )
+        val previewState = mutableStateOf<Resource<Pair<Boolean, List<LoadResponse>>>>(Resource.Loading())
         val randomState = mutableStateOf<List<SearchResponse>?>(null)
 
         val composeView = ComposeView(requireContext()).apply {
@@ -74,7 +76,7 @@ class HomeComposeFragment : Fragment() {
                                             LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                                 items(responses) { resp ->
                                                     // show poster/title
-                                                    val title = try { (resp as? com.lagradost.cloudstream3.ResultData)?.title ?: resp.toString() } catch (e: Exception) { resp.toString() }
+                                                    val title = resp.name
                                                     PosterCardForLoad(resp, onClick = { loadResp ->
                                                         val rootView = requireActivity().window.decorView
                                                         // Call HomeViewModel.click with LoadClickCallback
@@ -168,8 +170,8 @@ class HomeComposeFragment : Fragment() {
             }
             if (bottomSheetDialog != null) return@observe
             val (expandableList, deleteCallback) = item
-            bottomSheetDialog = activity?.loadHomepageList(expandableList, deleteCallback = deleteCallback, expandCallback = {
-                homeViewModel.expandAndReturn(it)
+            bottomSheetDialog = activity?.loadHomepageList(expandableList, deleteCallback = deleteCallback, expandCallback = { name ->
+                homeViewModel.expandAndReturn(name)
             }, dismissCallback = {
                 homeViewModel.popup(null)
                 bottomSheetDialog = null
@@ -205,9 +207,9 @@ fun Section(title: String, items: List<SearchResponse>, onClick: (SearchResponse
 @Composable
 fun PosterCard(item: SearchResponse, onClick: (SearchResponse) -> Unit) {
     Column(modifier = Modifier.width(140.dp).clickable { onClick(item) }) {
-        if (!item.poster.isNullOrEmpty()) {
+        if (!item.posterUrl.isNullOrEmpty()) {
             AsyncImage(
-                model = item.poster,
+                model = item.posterUrl,
                 contentDescription = item.name,
                 modifier = Modifier
                     .height(200.dp)
@@ -230,15 +232,8 @@ fun PosterCard(item: SearchResponse, onClick: (SearchResponse) -> Unit) {
 @Composable
 fun PosterCardForLoad(item: LoadResponse, onClick: (LoadResponse) -> Unit) {
     Column(modifier = Modifier.width(160.dp).clickable { onClick(item) }) {
-        // Try common properties via when-cast, fallback to string
-        val title = when (item) {
-            is com.lagradost.cloudstream3.ResultData -> item.title
-            else -> item.toString()
-        }
-        val poster = when (item) {
-            is com.lagradost.cloudstream3.ResultData -> item.posterImage
-            else -> null
-        }
+        val title = item.name
+        val poster = item.posterUrl
         if (!poster.isNullOrEmpty()) {
             AsyncImage(model = poster, contentDescription = title, modifier = Modifier.height(220.dp).fillMaxWidth())
         } else {
@@ -247,6 +242,6 @@ fun PosterCardForLoad(item: LoadResponse, onClick: (LoadResponse) -> Unit) {
             }
         }
         Spacer(modifier = Modifier.height(6.dp))
-        Text(title ?: "", maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(horizontal = 4.dp))
+        Text(title, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(horizontal = 4.dp))
     }
 }
