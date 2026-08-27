@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.dokka)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.compose)
 }
 
 val javaTarget = JvmTarget.fromTarget(libs.versions.jvmTarget.get())
@@ -73,14 +74,6 @@ android {
         includeInBundle = false
     }
 
-    androidComponents {
-        onVariants { variant ->
-            variant.sources.assets?.addGeneratedSourceDirectory(
-                generateGitHash,
-                GenerateGitHashTask::outputDir
-            )
-        }
-    }
 
     signingConfigs {
         // We just use SIGNING_KEY_ALIAS here since it won't change
@@ -203,11 +196,6 @@ android {
         compose = true
     }
 
-    composeOptions {
-        // Compose compiler extension version — adjust if build fails due to Kotlin/Compose mismatch
-        kotlinCompilerExtensionVersion = "1.6.0"
-    }
-
     packaging {
         jniLibs {
             // Enables legacy JNI packaging to reduce APK size (similar to builds before minSdk 23).
@@ -217,6 +205,15 @@ android {
     }
 
     namespace = "com.lagradost.cloudstream3"
+}
+
+androidComponents {
+    onVariants { variant ->
+        variant.sources.assets?.addGeneratedSourceDirectory(
+            generateGitHash,
+            GenerateGitHashTask::outputDir
+        )
+    }
 }
 
 dependencies {
@@ -247,14 +244,13 @@ dependencies {
     implementation(libs.constraintlayout)
 
     // Jetpack Compose + Material3 (for gradual migration)
-    implementation("androidx.activity:activity-compose:1.7.2")
-    implementation("androidx.compose.ui:ui:1.5.1")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.5.1")
-    implementation("androidx.compose.material3:material3:1.2.0")
+    implementation(platform(libs.compose.bom))
+    implementation(libs.bundles.compose)
+    implementation(libs.activity.compose)
     // Coil Compose for image loading in Compose
-    implementation("io.coil-kt:coil-compose:3.3.0")
+    implementation(libs.coil.compose)
     // Optional tooling for debugging previews
-    debugImplementation("androidx.compose.ui:ui-tooling:1.5.1")
+    debugImplementation(libs.ui.tooling)
 
     // Coil Image Loading
     implementation(libs.bundles.coil)
