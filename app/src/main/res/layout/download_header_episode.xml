@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/episode_holder"
@@ -31,7 +31,7 @@
         android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:orientation="horizontal">
         <!--app:cardCornerRadius="@dimen/roundedImageRadius"-->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="70dp"
             android:layout_height="104dp">
 
@@ -59,7 +59,7 @@
                     style="@style/DownloadHeaderCircularProgress"
                     tools:progress="100" />
             </FrameLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,7 +73,7 @@
                 android:id="@+id/download_header_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?attr/textColor"
+                android:textColor="?attr/colorOnSurface"
                 android:textStyle="bold"
                 tools:text="Perfect Run" />
 
@@ -81,7 +81,7 @@
                 android:id="@+id/download_header_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?attr/grayTextColor"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 tools:text="1 episode | 285MB" />
         </LinearLayout>
 
@@ -106,7 +106,7 @@
             android:nextFocusLeft="@id/episode_holder"
             android:padding="10dp" />
 
-        <CheckBox
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/delete_checkbox"
             android:layout_width="@dimen/download_size"
             android:layout_height="@dimen/download_size"
@@ -117,4 +117,4 @@
             android:padding="10dp"
             android:visibility="gone" />
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

@@ -904,7 +904,7 @@ https://developer.android.com/design/ui/tv/samples/jet-fit
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <androidx.cardview.widget.CardView
+                        <com.google.android.material.card.MaterialCardView
                             android:id="@+id/result_poster_holder"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -922,7 +922,7 @@ https://developer.android.com/design/ui/tv/samples/jet-fit
                                 android:foreground="@drawable/outline_drawable"
                                 android:scaleType="centerCrop"
                                 tools:src="@drawable/example_poster" />
-                        </androidx.cardview.widget.CardView>
+                        </com.google.android.material.card.MaterialCardView>
 
                         <!--
                         <LinearLayout

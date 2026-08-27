@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3d50fa</color>
+    <color name="m3_surface">#121212</color>
+    <color name="m3_surface_variant">#1E1E1E</color>
+    <color name="m3_surface_container">#1F1F1F</color>
+    <color name="m3_surface_container_high">#2B2B2B</color>
+    <color name="m3_primary">#8AB4F8</color>
+    <color name="m3_primary_container">#1F385A</color>
+    <color name="m3_secondary">#AECBFA</color>
+    <color name="m3_on_surface">#EAEAEA</color>
+    <color name="m3_on_surface_variant">#B9C5D3</color>
+    <color name="m3_outline">#3C3C3C</color>
+
+    <color name="colorPrimary">#7C9CFF</color>
     <color name="colorPrimarySecond">@color/colorPrimary</color>
-    <color name="colorSearch">#303135</color> <!--#3444D1 @color/itemBackground-->
-    <color name="colorOngoing">#F53B66</color> <!--FF8181-->
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#3b65f5</color> <!-- 818fff-->
+    <color name="colorSearch">#2C2F3F</color> <!--#3444D1 @color/itemBackground-->
+    <color name="colorOngoing">#FF5D8F</color> <!--FF8181-->
+    <color name="colorPrimaryDark">#5A6FEA</color>
+    <color name="colorAccent">#8FA5FF</color> <!-- 818fff-->
 
-    <color name="primaryGrayBackground">#2B2C30</color> <!--0f0f10 0E0E10 303135 2B2C30-->
-    <color name="primaryBlackBackground">#111111</color> <!--1C1C20 191a1f 19181E 202125 1C1C20-->
-    <color name="iconGrayBackground">#1C1C20</color> <!--141419 202125-->
-    <color name="boxItemBackground">#161616</color> <!-- 17171B 1B1B20-->
+    <color name="primaryGrayBackground">#1F2230</color> <!--0f0f10 0E0E10 303135 2B2C30-->
+    <color name="primaryBlackBackground">#0D1017</color> <!--1C1C20 191a1f 19181E 202125 1C1C20-->
+    <color name="iconGrayBackground">#2A2F3E</color> <!--141419 202125-->
+    <color name="boxItemBackground">#181D2B</color> <!-- 17171B 1B1B20-->
 
-    <color name="textColor">#e9eaee</color> <!--FFF-->
-    <color name="grayTextColor">#9ba0a4</color> <!-- 5e5f62-->
+    <color name="textColor">#EEF2FF</color> <!--FFF-->
+    <color name="grayTextColor">#A7AFC7</color> <!-- 5e5f62-->
     <color name="grayShimmer">#DCDCDC</color> <!-- 5e5f62-->
 
     <color name="searchColorTransparent">#1AFFFFFF</color> <!--DADADA-->

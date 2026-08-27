@@ -139,6 +139,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
         debug {
             isDebuggable = true
@@ -189,6 +190,12 @@ android {
     buildFeatures {
         buildConfig = true
         viewBinding = true
+        compose = true
+    }
+
+    composeOptions {
+        // Compose compiler extension version — adjust if build fails due to Kotlin/Compose mismatch
+        kotlinCompilerExtensionVersion = "1.6.0"
     }
 
     packaging {
@@ -229,6 +236,16 @@ dependencies {
     implementation(libs.preference.ktx)
     implementation(libs.material)
     implementation(libs.constraintlayout)
+
+    // Jetpack Compose + Material3 (for gradual migration)
+    implementation("androidx.activity:activity-compose:1.7.2")
+    implementation("androidx.compose.ui:ui:1.5.1")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.5.1")
+    implementation("androidx.compose.material3:material3:1.2.0")
+    // Coil Compose for image loading in Compose
+    implementation("io.coil-kt:coil-compose:3.3.0")
+    // Optional tooling for debugging previews
+    debugImplementation("androidx.compose.ui:ui-tooling:1.5.1")
 
     // Coil Image Loading
     implementation(libs.bundles.coil)

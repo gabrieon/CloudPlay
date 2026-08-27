@@ -1,4 +1,4 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/toast_layout_root"
         android:orientation="horizontal"
@@ -16,4 +16,4 @@
             android:layout_height="match_parent"
             android:textColor="?attr/textColor" />
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
             android:foreground="@drawable/outline_drawable"
             android:layout_margin="2dp"
             android:layout_width="114dp"
@@ -26,7 +26,7 @@
                 android:layout_height="match_parent"
                 android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/search_poster_img_des" />
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <ListView
             android:nextFocusRight="@id/cancel_btt"

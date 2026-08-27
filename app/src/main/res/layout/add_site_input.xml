@@ -18,7 +18,7 @@
 
             android:paddingStart="?android:attr/listPreferredItemPaddingStart"
             android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-            android:textColor="?attr/textColor"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="20sp"
             android:textStyle="bold"
             android:text="@string/add_site_pref" />
@@ -35,7 +35,7 @@
 
             android:paddingStart="?android:attr/listPreferredItemPaddingStart"
             android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-            android:textColor="?attr/grayTextColor"
+            android:textColor="?attr/colorOnSurfaceVariant"
             android:textSize="15sp"
             tools:text="Gogoanime" />
 
@@ -46,8 +46,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <EditText
-                android:textColorHint="?attr/grayTextColor"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:hint="@string/example_site_name"
                 android:autofillHints="username"
                 android:id="@+id/site_name_input"
@@ -59,9 +64,15 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-                android:textColorHint="?attr/grayTextColor"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:autofillHints="no"
                 android:hint="@string/example_site_url"
                 android:id="@+id/site_url_input"
@@ -75,9 +86,15 @@
                 android:layout_height="wrap_content"
                 android:inputType="textUri"
                 tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-                android:textColorHint="?attr/grayTextColor"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:hint="@string/example_lang_name"
                 android:autofillHints="username"
                 android:id="@+id/site_lang_input"
@@ -90,6 +107,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <LinearLayout

@@ -24,7 +24,7 @@
 
             android:paddingStart="?android:attr/listPreferredItemPaddingStart"
             android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-            android:textColor="?attr/textColor"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="20sp"
             android:textStyle="bold"
             tools:text="Test" />
@@ -46,66 +46,90 @@
         android:layout_marginBottom="60dp"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/login_username_input"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="username"
-            android:hint="@string/example_username"
-            android:inputType="text"
-            android:nextFocusLeft="@id/apply_btt"
-            android:nextFocusRight="@id/cancel_btt"
-            android:nextFocusDown="@id/login_email_input"
-            android:requiresFadingEdge="vertical"
-            android:textColorHint="?attr/grayTextColor"
-            tools:ignore="LabelFor" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/login_email_input"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_username_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="username"
+                android:hint="@string/example_username"
+                android:inputType="text"
+                android:nextFocusLeft="@id/apply_btt"
+                android:nextFocusRight="@id/cancel_btt"
+                android:nextFocusDown="@id/login_email_input"
+                android:requiresFadingEdge="vertical"
+                android:textColorHint="?attr/colorOnSurfaceVariant"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="emailAddress"
-            android:hint="@string/example_email"
-            android:inputType="textEmailAddress"
-            android:nextFocusLeft="@id/apply_btt"
-            android:nextFocusRight="@id/cancel_btt"
+            android:layout_height="wrap_content">
 
-            android:nextFocusUp="@id/login_username_input"
-            android:nextFocusDown="@id/login_server_input"
-            android:requiresFadingEdge="vertical"
-            android:textColorHint="?attr/grayTextColor"
-            tools:ignore="LabelFor" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_email_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="emailAddress"
+                android:hint="@string/example_email"
+                android:inputType="textEmailAddress"
+                android:nextFocusLeft="@id/apply_btt"
+                android:nextFocusRight="@id/cancel_btt"
 
-        <EditText
-            android:id="@+id/login_server_input"
+                android:nextFocusUp="@id/login_username_input"
+                android:nextFocusDown="@id/login_server_input"
+                android:requiresFadingEdge="vertical"
+                android:textColorHint="?attr/colorOnSurfaceVariant"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="no"
-            android:hint="@string/example_ip"
-            android:inputType="textUri"
-            android:nextFocusLeft="@id/apply_btt"
-            android:nextFocusRight="@id/cancel_btt"
-            android:nextFocusUp="@id/login_email_input"
-            android:nextFocusDown="@id/login_password_input"
-            android:requiresFadingEdge="vertical"
-            android:textColorHint="?attr/grayTextColor"
-            tools:ignore="LabelFor" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/login_password_input"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_server_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="no"
+                android:hint="@string/example_ip"
+                android:inputType="textUri"
+                android:nextFocusLeft="@id/apply_btt"
+                android:nextFocusRight="@id/cancel_btt"
+                android:nextFocusUp="@id/login_email_input"
+                android:nextFocusDown="@id/login_password_input"
+                android:requiresFadingEdge="vertical"
+                android:textColorHint="?attr/colorOnSurfaceVariant"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="password"
-            android:hint="@string/example_password"
-            android:inputType="textPassword"
-            android:nextFocusLeft="@id/apply_btt"
+            android:layout_height="wrap_content">
 
-            android:nextFocusRight="@id/cancel_btt"
-            android:nextFocusUp="@id/login_server_input"
-            android:nextFocusDown="@id/apply_btt"
-            android:requiresFadingEdge="vertical"
-            android:textColorHint="?attr/grayTextColor"
-            tools:ignore="LabelFor" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_password_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="password"
+                android:hint="@string/example_password"
+                android:inputType="textPassword"
+                android:nextFocusLeft="@id/apply_btt"
+
+                android:nextFocusRight="@id/cancel_btt"
+                android:nextFocusUp="@id/login_server_input"
+                android:nextFocusDown="@id/apply_btt"
+                android:requiresFadingEdge="vertical"
+                android:textColorHint="?attr/colorOnSurfaceVariant"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
 

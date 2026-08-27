@@ -5,7 +5,7 @@
     android:id="@+id/home_header"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/primaryBlackBackground"
+    android:background="@drawable/m3_window_background"
     android:orientation="vertical">
 
     <View
@@ -41,13 +41,14 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:editTextColor="@color/white"
+                android:background="@drawable/m3_glass_surface"
+                android:editTextColor="@color/textColor"
                 android:gravity="center_vertical"
                 android:iconifiedByDefault="true"
                 android:nextFocusRight="@id/home_head_profile_padding"
                 android:padding="0dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
+                android:textColor="@color/textColor"
+                android:textColorHint="@color/grayTextColor"
                 app:closeIcon="@drawable/ic_baseline_close_24"
                 app:iconifiedByDefault="true"
                 app:queryBackground="@color/transparent"
@@ -66,7 +67,7 @@
                 android:nextFocusLeft="@id/home_search"
                 android:orientation="horizontal">
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/home_head_profile_card"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -83,7 +84,7 @@
                         android:contentDescription="@string/account"
                         android:scaleType="centerCrop"
                         tools:src="@drawable/profile_bg_orange" />
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
         </LinearLayout>
 
@@ -174,7 +175,7 @@
             android:nextFocusLeft="@id/home_search"
             android:orientation="horizontal">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/alternate_home_head_profile_card"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -191,7 +192,7 @@
                     android:contentDescription="@string/account"
                     android:scaleType="centerCrop"
                     tools:src="@drawable/profile_bg_orange" />
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </LinearLayout>
 

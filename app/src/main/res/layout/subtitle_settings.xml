@@ -2,7 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/subs_root"
-    android:background="?attr/primaryBlackBackground"
+    android:background="?attr/colorSurface"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -25,7 +25,7 @@
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:text="@string/subtitles_settings"
-                android:textColor="?attr/textColor"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -177,7 +177,7 @@
                 android:nextFocusDown="@id/subtitles_remove_bloat"
                 android:text="@string/subs_download_languages" />
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/subtitles_remove_bloat"
                 style="@style/SettingsItem"
                 android:layout_width="match_parent"
@@ -191,7 +191,7 @@
                 app:trackTint="@color/toggle_selector"
                 app:drawableEndCompat="@null" />
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/subtitles_remove_captions"
                 style="@style/SettingsItem"
                 android:layout_width="match_parent"
@@ -205,7 +205,7 @@
                 app:trackTint="@color/toggle_selector"
                 app:drawableEndCompat="@null" />
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/subtitles_filter_sub_lang"
                 style="@style/SettingsItem"
                 android:layout_width="match_parent"
@@ -219,7 +219,7 @@
                 app:trackTint="@color/toggle_selector"
                 app:drawableEndCompat="@null" />
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/subtitles_uppercase"
                 style="@style/SettingsItem"
                 android:layout_width="match_parent"
@@ -233,7 +233,7 @@
                 app:trackTint="@color/toggle_selector"
                 app:drawableEndCompat="@null" />
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/subtitles_bold"
                 style="@style/SettingsItem"
                 android:layout_width="match_parent"
@@ -247,7 +247,7 @@
                 app:trackTint="@color/toggle_selector"
                 app:drawableEndCompat="@null" />
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/subtitles_italic"
                 style="@style/SettingsItem"
                 android:layout_width="match_parent"
@@ -268,7 +268,7 @@
 
                 android:gravity="center"
                 android:text="@string/subs_hold_to_reset_to_default"
-                android:textColor="?attr/textColor"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp" />
 
             <TextView
@@ -278,7 +278,7 @@
                 android:layout_rowWeight="1"
                 android:gravity="center"
                 android:text="@string/subs_import_text"
-                android:textColor="?attr/textColor"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp" />
 
             <LinearLayout

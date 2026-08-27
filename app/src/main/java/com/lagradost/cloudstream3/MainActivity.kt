@@ -28,7 +28,7 @@ import androidx.annotation.IdRes
 import androidx.annotation.MainThread
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
+import com.google.android.material.card.MaterialCardView
 import androidx.core.content.edit
 import androidx.core.net.toUri
 import androidx.core.view.children
@@ -1747,7 +1747,7 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener, BiometricCa
 
             if (isLayout(TV or EMULATOR)) {
                 val navProfilePic = findViewById<ImageView>(R.id.nav_footer_profile_pic)
-                val navProfileCard = findViewById<CardView>(R.id.nav_footer_profile_card)
+                val navProfileCard = findViewById<MaterialCardView>(R.id.nav_footer_profile_card)
 
                 navProfileCard?.setOnClickListener {
                     showAccountSelectLinear()

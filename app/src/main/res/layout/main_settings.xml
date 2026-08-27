@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/primaryBlackBackground">
+    android:background="@drawable/m3_window_background">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,21 +16,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="16dp">
 
             <LinearLayout
                 android:id="@+id/settings_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="20dp"
+                android:padding="16dp"
                 tools:visibility="visible">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:foreground="@drawable/outline_big_25_gray"
-                    app:cardCornerRadius="25dp">
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    app:cardCornerRadius="28dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:strokeWidth="1dp"
+                    app:cardElevation="0dp">
 
                     <ImageView
                         android:id="@+id/settings_profile_pic"
@@ -40,7 +44,7 @@
                         android:scaleType="centerCrop"
                         tools:src="@drawable/profile_bg_orange" />
 
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
                 <TextView
                     android:id="@+id/settings_profile_text"
@@ -48,9 +52,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:textColor="?attr/textColor"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="18sp"
                     android:textStyle="normal"
                     tools:text="Quick Brown Fox" />
@@ -112,44 +116,48 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp">
 
                 <TextView
                     android:id="@+id/app_version"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:textColor="?attr/textColor"
+                    android:padding="8dp"
+                    android:textColor="?attr/colorOnSurface"
                     tools:text="0.0.0" />
 
                 <TextView
                     android:id="@+id/delimiter0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="•"
-                    android:textColor="?attr/textColor" />
+                    android:textColor="?attr/colorOnSurface" />
 
                 <TextView
                     android:id="@+id/commit_hash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:textColor="?attr/textColor"
+                    android:padding="8dp"
+                    android:textColor="?attr/colorOnSurface"
                     tools:text="1234567" />
 
                 <TextView
                     android:id="@+id/delimiter1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="•"
-                    android:textColor="?attr/textColor" />
+                    android:textColor="?attr/colorOnSurface" />
 
                 <TextView
                     android:id="@+id/build_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:textColor="?attr/textColor"
+                    android:padding="8dp"
+                    android:textColor="?attr/colorOnSurface"
                     tools:text="21/03/2024 09:02 pm" />
             </LinearLayout>
         </LinearLayout>

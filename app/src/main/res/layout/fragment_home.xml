@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_root"
     android:layout_width="match_parent"
-
     android:layout_height="match_parent"
+    android:background="@drawable/m3_window_background"
     tools:context=".ui.home.HomeFragment">
 
     <FrameLayout
@@ -15,7 +15,7 @@
         android:visibility="gone"
         tools:visibility="visible">
 
-        <ProgressBar
+        <com.google.android.material.progressindicator.CircularProgressIndicator
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
@@ -45,29 +45,29 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:layout_width="125dp"
                         android:layout_height="200dp"
                         android:layout_gravity="center"
                         android:layout_margin="@dimen/loading_margin"
-                        android:background="@color/grayShimmer"
+                        app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
                         android:translationX="-164dp"
                         app:cardCornerRadius="@dimen/loading_radius" />
 
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:layout_width="148dp"
                         android:layout_height="234dp"
                         android:layout_gravity="center"
                         android:layout_margin="@dimen/loading_margin"
-                        android:background="@color/grayShimmer"
+                        app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
                         app:cardCornerRadius="@dimen/loading_radius" />
 
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:layout_width="125dp"
                         android:layout_height="200dp"
                         android:layout_gravity="center"
                         android:layout_margin="@dimen/loading_margin"
-                        android:background="@color/grayShimmer"
+                        app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
                         android:translationX="164dp"
                         app:cardCornerRadius="@dimen/loading_radius" />
                 </FrameLayout>
@@ -98,7 +98,7 @@
             android:layout_height="40dp"
             android:layout_gravity="end"
             android:layout_margin="10dp"
-            android:background="@color/transparent"
+            android:background="@android:color/transparent"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -214,7 +214,7 @@
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:gravity="center"
-            android:textColor="?attr/textColor" />
+            android:textColor="?attr/colorOnSurface" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -231,7 +231,7 @@
         android:id="@+id/home_api_fab"
         style="@style/ExtendedFloatingActionButton"
         android:text="@string/home_source"
-        android:textColor="?attr/textColor"
+        android:textColor="?attr/colorOnSurface"
         android:visibility="gone"
         app:icon="@drawable/ic_baseline_filter_list_24"
         tools:ignore="ContentDescription"
@@ -242,7 +242,7 @@
         style="@style/ExtendedFloatingActionButton"
         android:layout_gravity="bottom|start"
         android:text="@string/home_random"
-        android:textColor="?attr/textColor"
+        android:textColor="?attr/colorOnSurface"
         android:visibility="gone"
         app:icon="@drawable/ic_baseline_play_arrow_24"
         tools:ignore="ContentDescription"

@@ -55,7 +55,7 @@
             app:icon="@drawable/ic_baseline_skip_next_24"
             tools:visibility="visible" />
 
-        <ProgressBar
+        <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/main_load"
             android:layout_width="50dp"
             android:layout_height="50dp"

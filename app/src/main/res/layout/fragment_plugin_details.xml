@@ -17,7 +17,7 @@
         android:visibility="visible">
 
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:cardCornerRadius="25dp">
@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:ignore="ContentDescription" />
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:id="@+id/plugin_name"

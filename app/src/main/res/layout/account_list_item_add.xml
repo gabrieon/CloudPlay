@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="110dp"
@@ -26,4 +26,4 @@
         android:scaleType="centerCrop"
         android:contentDescription="@string/add_account" />
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

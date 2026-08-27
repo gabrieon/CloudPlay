@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.cardview.widget.CardView
+import com.google.android.material.card.MaterialCardView
 import androidx.core.view.isVisible
 import androidx.palette.graphics.Palette
 import androidx.preference.PreferenceManager
@@ -63,7 +63,7 @@ object SearchResultBuilder {
         val textQuality: TextView? = itemView.findViewById(R.id.text_quality)
         val shadow: View? = itemView.findViewById(R.id.title_shadow)
 
-        val bg: CardView = itemView.findViewById(R.id.background_card)
+        val bg: MaterialCardView = itemView.findViewById(R.id.background_card)
 
         val bar: ProgressBar? = itemView.findViewById(R.id.watchProgress)
         val playImg: ImageView? = itemView.findViewById(R.id.search_item_download_play)

@@ -2,7 +2,7 @@
 # https://docs.gradle.org/current/userguide/dependency_versions.html#sec:strict-version
 [versions]
 activityKtx = "1.13.0"
-androidGradlePlugin = "9.1.1"
+androidGradlePlugin = "9.3.2"
 animeDb = "1.0.2"
 annotation = "1.10.0"
 appcompat = "1.7.1"
@@ -58,8 +58,8 @@ zipline = "1.27.0"
 jvmTarget = "1.8"
 jdkToolchain = "17"
 minSdk = "23"
-compileSdk = "36"
-targetSdk = "36"
+compileSdk = "37"
+targetSdk = "37"
 
 versionCode = "68"
 versionName = "4.7.0"

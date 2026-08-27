@@ -21,7 +21,7 @@
             android:orientation="horizontal"
             android:padding="12dp">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/rounded_image_radius">
@@ -33,7 +33,7 @@
                     android:contentDescription="@string/poster_image"
                     android:scaleType="centerCrop"
                     tools:src="@drawable/example_poster" />
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
                         android:layout_weight="1"
-                        android:textColor="?attr/textColor"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         tools:text="The Perfect Run" />
@@ -68,7 +68,7 @@
                         android:elevation="10dp"
                         android:nextFocusDown="@id/resultview_preview_bookmark"
                         android:src="@drawable/baseline_notifications_none_24"
-                        app:tint="?attr/textColor" />
+                        app:tint="?attr/colorOnSurface" />
 
                     <ImageView
                         android:id="@+id/resultview_preview_favorite"
@@ -82,7 +82,7 @@
                         android:elevation="10dp"
                         android:nextFocusDown="@id/resultview_preview_bookmark"
                         android:src="@drawable/ic_baseline_favorite_border_24"
-                        app:tint="?attr/textColor" />
+                        app:tint="?attr/colorOnSurface" />
 
                 </LinearLayout>
 
@@ -122,7 +122,7 @@
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
 
-                     android:textColor="?attr/grayTextColor"
+                     android:textColor="?attr/colorOnSurfaceVariant"
                      tools:text="2023" />-->
 
                 <FrameLayout
@@ -135,7 +135,7 @@
                         android:layout_height="wrap_content"
 
                         android:ellipsize="end"
-                        android:textColor="?attr/textColor"
+                        android:textColor="?attr/colorOnSurface"
                         tools:text="Ryan Quicksave Romano is an eccentric adventurer with a strange power: he can create a save-point in time and redo his life whenever he dies. Arriving in New Rome, the glitzy capital of sin of a rebuilding Europe, he finds the city torn between mega-corporations, sponsored heroes, superpowered criminals, and true monsters. It's a time of chaos, where potions can grant the power to rule the world and dangers lurk everywhere. " />
 
                     <View
@@ -236,7 +236,7 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="26dp"
                     android:layout_margin="@dimen/result_padding"

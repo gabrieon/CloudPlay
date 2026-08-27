@@ -10,7 +10,7 @@
     <!--
        app:thumbTint="@color/toggle_selector"
        app:trackTint="@color/toggle_selector"-->
-    <com.google.android.material.switchmaterial.SwitchMaterial
+    <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/toggle1"
 
             android:nextFocusLeft="@id/apply_btt"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content">
 
         <requestFocus />
-    </com.google.android.material.switchmaterial.SwitchMaterial>
+    </com.google.android.material.materialswitch.MaterialSwitch>
 
     <ListView
             android:nextFocusRight="@id/cancel_btt"

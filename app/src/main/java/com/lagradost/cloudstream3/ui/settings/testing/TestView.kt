@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.cardview.widget.CardView
+import com.google.android.material.card.MaterialCardView
 import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import androidx.core.view.isVisible
@@ -20,7 +20,7 @@ class TestView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : CardView(context, attrs) {
+) : MaterialCardView(context, attrs) {
     enum class TestState(@StringRes val stringRes: Int, @DrawableRes val icon: Int) {
         None(R.string.start, R.drawable.ic_baseline_play_arrow_24),
 

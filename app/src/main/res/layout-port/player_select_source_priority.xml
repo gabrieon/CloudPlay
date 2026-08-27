@@ -97,19 +97,25 @@
         android:gravity="center_vertical"
         android:paddingHorizontal="?android:attr/listPreferredItemPaddingStart">
 
-        <EditText
-            android:id="@+id/profile_text_editable"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:autofillHints="username"
-            android:inputType="text"
-            android:maxLength="32"
-            android:textColor="?attr/textColor"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            tools:text="@string/profile_number"
-            tools:ignore="LabelFor" />
+            android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/profile_text_editable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="username"
+                android:inputType="text"
+                android:maxLength="32"
+                android:textColor="?attr/textColor"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="@string/profile_number"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/save_btt"

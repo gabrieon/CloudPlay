@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent">
+    android:background="?attr/colorSurface"
+    app:elevation="0dp">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/settings_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/primaryGrayBackground"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorSurface"
         android:descendantFocusability="afterDescendants"
-        android:paddingTop="@dimen/navbar_height"
         app:layout_scrollFlags="scroll|enterAlways"
-        app:navigationIconTint="?attr/iconColor"
-        app:titleTextColor="?attr/textColor"
+        app:navigationIconTint="?attr/colorOnSurface"
+        app:titleTextColor="?attr/colorOnSurface"
+        app:titleCentered="true"
+        style="@style/Widget.Material3.Toolbar.Surface"
         tools:title="Overlord" />
 </com.google.android.material.appbar.AppBarLayout>

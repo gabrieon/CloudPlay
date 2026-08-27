@@ -14,7 +14,7 @@
             android:orientation="horizontal"
             android:layout_height="wrap_content">
         <!--app:cardCornerRadius="@dimen/roundedImageRadius"-->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
                 android:background="@color/grayShimmer"
                 app:cardCornerRadius="@dimen/loading_radius"
                 android:layout_width="126dp"

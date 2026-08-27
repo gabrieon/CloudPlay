@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/download_child_episode_holder"
@@ -72,7 +72,7 @@
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:textColor="?attr/textColor"
+                android:textColor="?attr/colorOnSurface"
                 tools:text="Episode 1 Episode 1 Episode 1 Episode 1 Episode 1 Episode 1 Episode 1" />
 
             <TextView
@@ -83,7 +83,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:gravity="center_vertical"
-                android:textColor="?attr/grayTextColor"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 tools:text="128MB / 237MB" />
         </LinearLayout>
         </LinearLayout>
@@ -98,7 +98,7 @@
             android:nextFocusLeft="@id/download_child_episode_holder"
             android:padding="10dp" />
 
-        <CheckBox
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/delete_checkbox"
             android:layout_width="@dimen/download_size"
             android:layout_height="@dimen/download_size"
@@ -109,4 +109,4 @@
             android:padding="10dp"
             android:visibility="gone" />
     </GridLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

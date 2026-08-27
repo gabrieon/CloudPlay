@@ -87,7 +87,7 @@
                 android:text="@string/extensions"
                 android:textColor="?attr/textColor" />
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="fill_parent"
                 android:layout_height="12dp"
                 android:layout_marginBottom="5dp"
@@ -122,7 +122,7 @@
                         android:background="@drawable/storage_bar_right"
                         tools:layout_weight="0.10" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
                 android:layout_width="match_parent"

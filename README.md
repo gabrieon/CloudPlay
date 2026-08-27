@@ -1,8 +1,8 @@
-# CloudStream
+# CloudPlay - A Material 3 UI - Fork of the Original CloudStream App
 
 **⚠️ Warning: By default, this app doesn't provide any video sources; you have to install extensions to add functionality to the app.**
 
-[![Discord](https://invidget.switchblade.xyz/5Hus6fM)](https://discord.gg/5Hus6fM)
+
 
 
 ## Table of Contents: 
@@ -21,9 +21,9 @@
 
 ## About us: 
 
-**CloudStream is a media center that prioritizes and emphasizes complete freedom and flexibility for users and developers.** 
+**CloudPlay is a media center that prioritizes and emphasizes complete freedom and flexibility for users and developers with new Material 3 UI.** 
 
-CloudStream is an extension-based multimedia player with tracking support. There are extensions to view videos from: 
+CloudPlay is an extension-based multimedia player with tracking support. There are extensions to view videos from: 
 
 + [Librevox (audio-books)](https://librivox.org/) 
 + [Youtube](https://www.youtube.com/)
@@ -33,7 +33,7 @@ CloudStream is an extension-based multimedia player with tracking support. There
 + And more... 
 
 
-**Please don't create illegal extensions or use any that host any copyrighted media.** For more details about our stance on the DMCA and EUCD, you can read about it on our organization: [reCloudStream](https://github.com/recloudstream)
+**Please don't create or use any repository that host any copyrighted media.** For more details about our stance on the DMCA and EUCD, you can read about it on our organization: [reCloudStream](https://github.com/recloudstream)
 
 #### Important Copyright Note: 
 
@@ -83,7 +83,7 @@ While we **actively** accept issues and pull requests, we do require you fill ou
 
 ### Extensions:
  
-**Further details on creating extensions for CloudStream are found in our documentation.**
+**Details on creating extensions for CloudStream are found in our documentation.**
 
 [Guide: For Extension Developers](https://recloudstream.github.io/csdocs/devs/gettingstarted/) 
 
@@ -91,7 +91,7 @@ While we **actively** accept issues and pull requests, we do require you fill ou
 
 ## Further Sources: 
 
-As well as providing clear install steps, our [website](https://dweb.link/ipns/cloudstream.on.fleek.co/) includes a wide variety of other tools, such as: 
+As well as providing clear install steps, CloudStream [website](https://dweb.link/ipns/cloudstream.on.fleek.co/) includes a wide variety of other tools, such as: 
 - [Troubleshooting](https://recloudstream.github.io/csdocs/troubleshooting/)
 - [Further CloudStream Repositories](https://recloudstream.github.io/csdocs/repositories/) 
 - Set-Up for other devices, such as:

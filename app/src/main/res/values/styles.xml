@@ -1,13 +1,27 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. Material3 -->
-    <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_background</item>
-        <item name="android:colorEdgeEffect">?attr/textColor</item>
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/m3_window_background</item>
+        <item name="android:colorEdgeEffect">?attr/colorOnSurface</item>
 
-        <item name="android:navigationBarColor">?attr/primaryBlackBackground</item>
-        <item name="android:statusBarColor">?attr/iconGrayBackground</item>
+        <item name="colorPrimary">@color/m3_primary</item>
+        <item name="colorPrimaryContainer">@color/m3_primary_container</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/m3_secondary</item>
+        <item name="colorSecondaryContainer">@color/m3_primary_container</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSurface">@color/m3_surface</item>
+        <item name="colorSurfaceVariant">@color/m3_surface_variant</item>
+        <item name="colorSurfaceContainer">@color/m3_surface_container</item>
+        <item name="colorSurfaceContainerHigh">@color/m3_surface_container_high</item>
+        <item name="colorOnSurface">@color/m3_on_surface</item>
+        <item name="colorOnSurfaceVariant">@color/m3_on_surface_variant</item>
+        <item name="colorOutline">@color/m3_outline</item>
 
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+
+        <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowTranslucentNavigation">false</item>
 
         <item name="android:scrollbarThumbVertical">@null</item>
@@ -34,44 +48,120 @@
             @style/CustomCastExpandedController
         </item>
         <item name="castMiniControllerStyle">@style/CustomCastMiniController</item>
-        <!--<item name="mediaRouteButtonTint">?attr/colorPrimary</item>-->
 
         <!-- Preference -->
-        <item name="android:textColor">?attr/textColor</item>
-        <item name="android:textColorSecondary">?attr/grayTextColor</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textColorSecondary">?attr/colorOnSurfaceVariant</item>
 
-        <item name="android:textColorHint">?attr/grayTextColor</item>
-        <item name="android:editTextColor">?attr/textColor</item>
-        <item name="android:colorForeground">?attr/textColor</item>
-        <item name="android:colorControlHighlight">?attr/textColor</item> <!--iconRipple-->
+        <item name="android:textColorHint">?attr/colorOnSurfaceVariant</item>
+        <item name="android:editTextColor">?attr/colorOnSurface</item>
+        <item name="android:colorForeground">?attr/colorOnSurface</item>
+        <item name="android:colorControlHighlight">?attr/colorPrimary</item>
 
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
-        <!--<item name="preferenceTheme">@style/PreferencesTheme</item>-->
 
-        <!-- DEF STYLE -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="textColor">@color/textColor</item>
-        <item name="colorOnPrimary">@color/whiteText</item>
-        <item name="grayTextColor">@color/grayTextColor</item>
-        <item name="primaryGrayBackground">@color/primaryGrayBackground</item>
-        <item name="primaryBlackBackground">@color/primaryBlackBackground</item>
-        <item name="iconGrayBackground">@color/iconGrayBackground</item>
-        <item name="boxItemBackground">@color/boxItemBackground</item>
-        <item name="iconColor">@color/iconColor</item>
-        <item name="white">@color/white</item>
-        <item name="black">@color/black</item>
+        <!-- DEF STYLE - Mapping custom attrs to M3 tokens -->
+        <item name="colorPrimary">?attr/colorPrimary</item>
+        <item name="colorPrimaryDark">?attr/colorPrimaryDark</item>
+        <item name="colorAccent">?attr/colorSecondary</item>
+        <item name="textColor">?attr/colorOnSurface</item>
+        <item name="colorOnPrimary">?attr/colorOnPrimary</item>
+        <item name="grayTextColor">?attr/colorOnSurfaceVariant</item>
+        <item name="primaryGrayBackground">?attr/colorSurfaceContainer</item>
+        <item name="primaryBlackBackground">?attr/colorSurface</item>
+        <item name="iconGrayBackground">?attr/colorSurfaceContainerHigh</item>
+        <item name="boxItemBackground">?attr/colorSurfaceContainerLow</item>
+        <item name="iconColor">?attr/colorOnSurfaceVariant</item>
+        <item name="white">?attr/colorOnSurface</item>
+        <item name="black">?attr/colorSurface</item>
         <item name="focusBackground">?android:attr/selectableItemBackground</item>
         <item name="preferenceTheme">@style/CustomPreferenceThemeOverlay</item>
 
-        <item name="download_icon_color">?attr/white</item>
-        <item name="download_fill_color">?attr/white</item>
-        <item name="download_outline_color">?attr/white</item>
+        <item name="download_icon_color">?attr/colorOnSurface</item>
+        <item name="download_fill_color">?attr/colorOnSurface</item>
+        <item name="download_outline_color">?attr/colorOnSurface</item>
         <item name="download_icon_scale">1.0</item>
 
-        <item name="cpv_focusBorderColor">?attr/white</item>
+        <item name="cpv_focusBorderColor">?attr/colorOnSurface</item>
+
+        <!-- Typography -->
+        <item name="textAppearanceDisplayLarge">@style/AppTextAppearance.DisplayLarge</item>
+        <item name="textAppearanceDisplayMedium">@style/AppTextAppearance.DisplayMedium</item>
+        <item name="textAppearanceDisplaySmall">@style/AppTextAppearance.DisplaySmall</item>
+        <item name="textAppearanceHeadlineLarge">@style/AppTextAppearance.HeadlineLarge</item>
+        <item name="textAppearanceHeadlineMedium">@style/AppTextAppearance.HeadlineMedium</item>
+        <item name="textAppearanceHeadlineSmall">@style/AppTextAppearance.HeadlineSmall</item>
+        <item name="textAppearanceTitleLarge">@style/AppTextAppearance.TitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/AppTextAppearance.TitleMedium</item>
+        <item name="textAppearanceTitleSmall">@style/AppTextAppearance.TitleSmall</item>
+        <item name="textAppearanceBodyLarge">@style/AppTextAppearance.BodyLarge</item>
+        <item name="textAppearanceBodyMedium">@style/AppTextAppearance.BodyMedium</item>
+        <item name="textAppearanceBodySmall">@style/AppTextAppearance.BodySmall</item>
+        <item name="textAppearanceLabelLarge">@style/AppTextAppearance.LabelLarge</item>
+        <item name="textAppearanceLabelMedium">@style/AppTextAppearance.LabelMedium</item>
+        <item name="textAppearanceLabelSmall">@style/AppTextAppearance.LabelSmall</item>
+    </style>
+
+    <style name="AppTextAppearance.DisplayLarge" parent="TextAppearance.Material3.DisplayLarge">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="fontFamily">@font/google_sans</item>
+    </style>
+    <style name="AppTextAppearance.DisplayMedium" parent="TextAppearance.Material3.DisplayMedium">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="fontFamily">@font/google_sans</item>
+    </style>
+    <style name="AppTextAppearance.DisplaySmall" parent="TextAppearance.Material3.DisplaySmall">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="fontFamily">@font/google_sans</item>
+    </style>
+    <style name="AppTextAppearance.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="fontFamily">@font/google_sans</item>
+    </style>
+    <style name="AppTextAppearance.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="fontFamily">@font/google_sans</item>
+    </style>
+    <style name="AppTextAppearance.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="fontFamily">@font/google_sans</item>
+    </style>
+    <style name="AppTextAppearance.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="fontFamily">@font/google_sans</item>
+    </style>
+    <style name="AppTextAppearance.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="fontFamily">@font/google_sans</item>
+    </style>
+    <style name="AppTextAppearance.TitleSmall" parent="TextAppearance.Material3.TitleSmall">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="fontFamily">@font/google_sans</item>
+    </style>
+    <style name="AppTextAppearance.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="fontFamily">@font/google_sans</item>
+    </style>
+    <style name="AppTextAppearance.BodyMedium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="fontFamily">@font/google_sans</item>
+    </style>
+    <style name="AppTextAppearance.BodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="fontFamily">@font/google_sans</item>
+    </style>
+    <style name="AppTextAppearance.LabelLarge" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="fontFamily">@font/google_sans</item>
+    </style>
+    <style name="AppTextAppearance.LabelMedium" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="fontFamily">@font/google_sans</item>
+    </style>
+    <style name="AppTextAppearance.LabelSmall" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="fontFamily">@font/google_sans</item>
     </style>
 
     <style name="AppThemeTvOverlay">
@@ -125,7 +215,7 @@
         <item name="textColor">?attr/textColor</item>
     </style>
 
-    <style name="AmoledMode">
+    <style name="AmoledMode" parent="Theme.Material3.Dark.NoActionBar">
         <item name="primaryGrayBackground">@color/black</item>
         <item name="primaryBlackBackground">@color/black</item>
         <item name="iconGrayBackground">@color/primaryBlackBackground</item>
@@ -135,6 +225,8 @@
         <item name="white">@color/white</item>
         <item name="black">@color/black</item>
         <item name="colorOnPrimary">@color/whiteText</item>
+        <item name="android:windowBackground">@color/black</item>
+        <item name="colorSurface">@color/black</item>
     </style>
 
     <style name="DubButton" parent="@style/SearchBox">
@@ -169,7 +261,7 @@
         <item name="android:text">@string/quality_hd</item>
     </style>
 
-    <style name="LightMode">
+    <style name="LightMode" parent="Theme.Material3.Light.NoActionBar">
         <item name="primaryGrayBackground">@color/lightPrimaryGrayBackground</item>
         <item name="primaryBlackBackground">@color/lightBitDarkerGrayBackground</item>
         <item name="iconGrayBackground">@color/lightGrayBackground</item>
@@ -181,9 +273,15 @@
         <item name="colorOnPrimary">@color/blackText</item>
         <item name="isLightTheme">true</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+
+        <item name="colorSurface">@color/lightBitDarkerGrayBackground</item>
+        <item name="colorOnSurface">@color/lightTextColor</item>
+        <item name="colorSurfaceContainer">@color/lightPrimaryGrayBackground</item>
+        <item name="colorOnSurfaceVariant">@color/lightGrayTextColor</item>
     </style>
 
-    <style name="DraculaMode">
+    <style name="DraculaMode" parent="Theme.Material3.Dark.NoActionBar">
         <item name="primaryGrayBackground">@color/DraculaPrimaryGrayBackground</item>
         <item name="primaryBlackBackground">@color/DraculaBitDarkerGrayBackground</item>
         <item name="iconGrayBackground">@color/DraculaGrayBackground</item>
@@ -193,10 +291,14 @@
         <item name="white">@color/DraculaTextColor</item>
         <item name="black">@color/DraculaPrimaryGrayBackground</item>
         <item name="colorOnPrimary">@color/DraculaTextColor</item>
+
+        <item name="colorSurface">@color/DraculaBitDarkerGrayBackground</item>
+        <item name="colorOnSurface">@color/DraculaTextColor</item>
+        <item name="colorSurfaceContainer">@color/DraculaPrimaryGrayBackground</item>
+        <item name="colorOnSurfaceVariant">@color/DraculaGrayTextColor</item>
     </style>
 
-
-    <style name="SilentBlueMode">
+    <style name="SilentBlueMode" parent="Theme.Material3.Dark.NoActionBar">
         <item name="primaryGrayBackground">@color/SilentBluePrimaryGrayBackground</item>
         <item name="primaryBlackBackground">@color/SilentBlueBitDarkerGrayBackground</item>
         <item name="iconGrayBackground">@color/SilentBlueGrayBackground</item>
@@ -206,9 +308,14 @@
         <item name="white">@color/SilentBlueTextColor</item>
         <item name="black">@color/SilentBluePrimaryGrayBackground</item>
         <item name="colorOnPrimary">@color/SilentBlueTextColor</item>
+
+        <item name="colorSurface">@color/SilentBlueBitDarkerGrayBackground</item>
+        <item name="colorOnSurface">@color/SilentBlueTextColor</item>
+        <item name="colorSurfaceContainer">@color/SilentBluePrimaryGrayBackground</item>
+        <item name="colorOnSurfaceVariant">@color/SilentBlueGrayTextColor</item>
     </style>
 
-    <style name="LavenderMode">
+    <style name="LavenderMode" parent="Theme.Material3.Light.NoActionBar">
         <item name="primaryGrayBackground">@color/LavenderPrimaryGrayBackground</item>
         <item name="primaryBlackBackground">@color/LavenderBitDarkerGrayBackground</item>
         <item name="iconGrayBackground">@color/LavenderGrayBackground</item>
@@ -220,9 +327,15 @@
         <item name="colorOnPrimary">@color/LavenderTextColor</item>
         <item name="isLightTheme">true</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+
+        <item name="colorSurface">@color/LavenderBitDarkerGrayBackground</item>
+        <item name="colorOnSurface">@color/LavenderTextColor</item>
+        <item name="colorSurfaceContainer">@color/LavenderPrimaryGrayBackground</item>
+        <item name="colorOnSurfaceVariant">@color/LavenderGrayTextColor</item>
     </style>
 
-    <style name="MonetMode">
+    <style name="MonetMode" parent="Theme.Material3.Dark.NoActionBar">
         <item name="primaryGrayBackground">@color/material_dynamic_neutral20</item>
         <item name="primaryBlackBackground">@color/material_dynamic_neutral10</item>
         <item name="iconGrayBackground">@color/material_dynamic_neutral20</item>
@@ -242,6 +355,11 @@
         <item name="colorOnPrimary">@color/whiteText</item>
         <!-- Needed for leanback fuckery -->
         <item name="android:colorAccent">@color/colorAccent</item>
+
+        <item name="colorSecondary">@color/colorAccent</item>
+        <item name="colorOnSecondary">@color/whiteText</item>
+        <item name="colorPrimaryContainer">@color/colorPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/whiteText</item>
     </style>
 
     <style name="OverlayPrimaryColorMonet">
@@ -272,6 +390,9 @@
         <item name="colorOnPrimary">@color/whiteText</item>
         <!-- Needed for leanback fuckery -->
         <item name="android:colorAccent">@color/colorPrimaryBlue</item>
+
+        <item name="colorSecondary">#5A6BCB</item>
+        <item name="colorOnSecondary">@color/whiteText</item>
     </style>
 
     <style name="OverlayPrimaryColorPurple">
@@ -463,7 +584,7 @@
         <item name="android:paddingStart">-10dp</item>
     </style>
 
-    <style name="AppSearchViewStyle" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="AppSearchViewStyle" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:searchIcon">@drawable/search_icon</item>
         <item name="android:queryHint">@string/search_hint</item>
         <item name="android:background">@color/transparent</item>
@@ -471,42 +592,46 @@
         <item name="closeIcon">@drawable/ic_baseline_close_24</item>
     </style>
 
-    <style name="AppBottomSheetDialogTheme">
-        <item name="android:navigationBarColor">?attr/boxItemBackground</item>
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Material3.DayNight.BottomSheetDialog">
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowAnimationStyle">@style/Animation.Design.BottomSheetDialog</item>
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
     </style>
 
-    <style name="AppModalStyle">
+    <style name="AppModalStyle" parent="Widget.Material3.BottomSheet.Modal">
         <item name="android:windowCloseOnTouchOutside">true</item>
         <item name="behavior_hideable">true</item>
         <item name="behavior_skipCollapsed">true</item>
-        <item name="shapeAppearance">@null</item>
-        <item name="shapeAppearanceOverlay">@null</item>
-        <item name="backgroundTint">?attr/primaryBlackBackground</item>
-        <item name="android:background">@drawable/rounded_dialog</item>
+        <item name="backgroundTint">?attr/colorSurface</item>
         <item name="behavior_peekHeight">512dp</item>
     </style>
 
     <style name="PreferenceTheme" parent="@style/AppTheme" />
 
-    <style name="Theme.AlertDialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+    <style name="Theme.AlertDialog" parent="Theme.Material3.DayNight.Dialog.Alert">
         <item name="android:windowMinWidthMajor">@dimen/abc_dialog_min_width_major</item>
         <item name="android:windowMinWidthMinor">@dimen/abc_dialog_min_width_minor</item>
         <item name="android:windowBackground">@drawable/dialog__window_background</item>
         <item name="textAllCaps">false</item>
-        <item name="android:textColorPrimary">?attr/grayTextColor</item>
+        <item name="android:textColorPrimary">?attr/colorOnSurface</item>
 
         <item name="buttonBarPositiveButtonStyle">@style/WhiteButton.Dialog</item>
         <item name="buttonBarNegativeButtonStyle">@style/BlackButton.Dialog</item>
         <item name="buttonBarNeutralButtonStyle">@style/BlackButton.Dialog</item>
     </style>
 
-    <style name="TabNoCaps" parent="TextAppearance.Design.Tab">
+    <style name="TabNoCaps" parent="TextAppearance.Material3.TitleSmall">
         <item name="textAllCaps">false</item>
-        <item name="fontFamily">@font/google_sans</item>
+        <item name="android:fontFamily">@font/google_sans</item>
+    </style>
+
+    <style name="PreferenceCategoryTitleTextStyle" parent="TextAppearance.Material3.TitleSmall">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="PreferenceSummaryTextStyle" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
     </style>
 
     <style name="AppTextViewStyle" parent="android:Widget.TextView">
@@ -534,21 +659,15 @@
            <item name="android:paddingEnd">5dp</item>-->
     </style>
 
-    <style name="AppMaterialButtonStyle" parent="Widget.MaterialComponents.Button">
+    <style name="AppMaterialButtonStyle" parent="Widget.Material3.Button">
         <item name="android:fontFamily">@font/google_sans</item>
     </style>
 
-    <style name="Theme.Widget.Tabs" parent="Widget.MaterialComponents.TabLayout.Colored">
-        <!--<item name="tabGravity">center</item>
-        <item name="backgroundTint">@color/transparent</item>
-        <item name="tabIndicator">@drawable/tab_selector</item>
+    <style name="Theme.Widget.Tabs" parent="Widget.Material3.TabLayout">
         <item name="tabIndicatorColor">?attr/colorPrimary</item>
-        <item name="tabTextColor">?attr/colorPrimary</item>
-        <item name="tabIndicatorFullWidth">false</item>
-        <item name="tabIndicatorHeight">3dp</item>
-        <item name="tabInlineLabel">true</item>
-        <item name="tabMinWidth">75dp</item>
-        <item name="tabMode">scrollable</item>-->
+        <item name="tabSelectedTextColor">?attr/colorPrimary</item>
+        <item name="tabTextColor">?attr/colorOnSurfaceVariant</item>
+        <item name="tabRippleColor">?attr/colorSecondaryContainer</item>
     </style>
 
     <style name="DarkFragment" parent="AppTheme">
@@ -572,7 +691,7 @@
         <item name="android:windowBackground">@drawable/dialog__window_background</item>
     </style>
 
-    <style name="AlertDialogCustomTransparent" parent="Theme.AppCompat.Dialog.Alert">
+    <style name="AlertDialogCustomTransparent" parent="Theme.Material3.DayNight.Dialog.Alert">
         <item name="android:windowBackground">@color/transparent</item>
     </style>
 
@@ -604,7 +723,7 @@
         <item name="android:windowMinWidthMinor">95%</item> <!-- 95% -->
     </style>
 
-    <style name="AlertDialogCustomBlack" parent="Theme.AppCompat.Dialog.Alert">
+    <style name="AlertDialogCustomBlack" parent="Theme.Material3.DayNight.Dialog.Alert">
         <item name="android:windowBackground">?attr/primaryBlackBackground</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -645,15 +764,19 @@
 
     <style name="SettingsItem">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_height">56dp</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingStart">20dp</item>
-        <item name="android:paddingEnd">20dp</item>
+        <item name="android:paddingStart">18dp</item>
+        <item name="android:paddingEnd">18dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
         <item name="android:selectAllOnFocus">true</item>
-        <item name="android:background">?attr/focusBackground</item>
-        <item name="android:textColor">?attr/textColor</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceListItemSmall</item>
+        <item name="android:background">?attr/colorSurfaceContainer</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textAppearance">@style/TextAppearance.Material3.TitleMedium</item>
         <item name="drawableEndCompat">@drawable/ic_baseline_keyboard_arrow_right_24</item>
+        <item name="drawableTint">?attr/colorOnSurfaceVariant</item>
     </style>
 
     <style name="WatchHeaderText">
@@ -667,28 +790,26 @@
     </style>
 
     <style name="SearchBox">
-        <item name="android:background">@drawable/bg_color_both</item>
+        <item name="android:background">?attr/colorSurfaceContainer</item>
         <item name="android:minWidth">40dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingLeft">7dp</item>
-        <item name="android:paddingRight">7dp</item>
-        <item name="android:paddingTop">3dp</item>
-        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
         <item name="android:textSize">10sp</item>
-        <item name="textColor">?attr/textColor</item>
-        <item name="android:textColor">?attr/textColor</item>
-        <item name="android:layout_marginLeft">1dp</item>
-        <item name="android:layout_marginRight">1dp</item>
-        <item name="android:layout_marginTop">1dp</item>
+        <item name="textColor">?attr/colorOnSurface</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:layout_marginTop">2dp</item>
     </style>
 
-    <style name="NiceButton">
-        <!--removes shadow-->
+    <style name="NiceButton" parent="Widget.Material3.Button">
         <item name="android:stateListAnimator">@null</item>
-
         <item name="android:padding">5dp</item>
         <item name="android:layout_marginStart">5dp</item>
         <item name="android:layout_marginEnd">5dp</item>
@@ -697,21 +818,20 @@
         <item name="android:textAllCaps">false</item>
         <item name="iconGravity">textStart</item>
         <item name="iconSize">20dp</item>
-        <item name="cornerRadius">@dimen/rounded_button_radius</item>
+        <item name="cornerRadius">16dp</item>
         <item name="android:textSize">15sp</item>
-
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
-        <item name="android:foreground">@drawable/outline_drawable_less</item>
+        <item name="android:foreground">@null</item>
         <item name="android:tag">@string/tv_no_focus_tag</item>
     </style>
 
     <style name="WhiteButton" parent="NiceButton">
-        <item name="strokeColor">?attr/iconGrayBackground</item>
-        <item name="backgroundTint">?attr/textColor</item>
-        <item name="iconTint">?attr/iconGrayBackground</item>
-        <item name="android:textColor">?attr/iconGrayBackground</item>
-        <item name="rippleColor">?attr/primaryBlackBackground</item>
+        <item name="strokeColor">?attr/colorSurfaceVariant</item>
+        <item name="backgroundTint">?attr/colorOnSurface</item>
+        <item name="iconTint">?attr/colorSurfaceVariant</item>
+        <item name="android:textColor">?attr/colorSurfaceVariant</item>
+        <item name="rippleColor">?attr/colorSurface</item>
     </style>
     <!-- This is so shit, because android has no native way to either changing the layout (android:layout) or changing the layout_height for no reason.
     So the only way to shrink the buttons is by using insetTop+insetBottom along with the drawable.
@@ -729,7 +849,7 @@
         <item name="android:insetBottom">@dimen/dialog_buttons_inset</item>
     </style>
 
-    <style name="BlackLabel" parent="@style/Widget.MaterialComponents.Tooltip">
+    <style name="BlackLabel" parent="@style/Widget.Material3.Tooltip">
         <item name="backgroundTint">?attr/iconGrayBackground</item>
         <item name="android:textColor">?attr/textColor</item>
     </style>
@@ -771,10 +891,10 @@
     </style>
 
     <style name="BlackButton" parent="NiceButton">
-        <item name="strokeColor">?attr/textColor</item>
-        <item name="backgroundTint">?attr/iconGrayBackground</item>
-        <item name="iconTint">?attr/textColor</item>
-        <item name="android:textColor">?attr/textColor</item>
+        <item name="strokeColor">?attr/colorOnSurface</item>
+        <item name="backgroundTint">?attr/colorSurfaceContainerHigh</item>
+        <item name="iconTint">?attr/colorOnSurface</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="rippleColor">@color/black_button_ripple</item>
     </style>
 
@@ -813,13 +933,13 @@
         <!--<item name="android:layout_height">35dp</item>-->
     </style>
 
-    <style name="ExtendedFloatingActionButton">
+    <style name="ExtendedFloatingActionButton" parent="Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary">
         <item name="elevation">0dp</item>
         <item name="android:textStyle">bold</item>
-        <item name="backgroundTint">?attr/primaryGrayBackground</item>
+        <item name="backgroundTint">?attr/colorSurfaceContainerHigh</item>
         <item name="tint">?attr/colorPrimary</item>
-        <item name="textColor">?attr/colorPrimary</item>
-        <item name="iconTint">?attr/textColor</item>
+        <item name="textColor">?attr/colorOnSurface</item>
+        <item name="iconTint">?attr/colorOnSurface</item>
         <item name="android:layout_margin">16dp</item>
         <item name="android:layout_gravity">end|bottom</item>
         <item name="textAllCaps">false</item>
@@ -829,19 +949,18 @@
     </style>
 
     <style name="RoundedSelectableButton">
-        <item name="backgroundTint">@color/toggle_button</item>
-        <item name="rippleColor">@color/textColor</item>
-        <item name="android:textColor">@color/toggle_button_text</item>
+        <item name="backgroundTint">#1F2230</item>
+        <item name="rippleColor">#66A7AFC7</item>
+        <item name="android:textColor">@color/textColor</item>
         <item name="cornerRadius">100dp</item>
         <item name="strokeWidth">1dp</item>
-        <item name="strokeColor">@color/toggle_button_outline</item>
+        <item name="strokeColor">#4D8FA5FF</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">45dp</item>
         <item name="android:paddingTop">0dp</item>
         <item name="android:paddingBottom">0dp</item>
         <item name="android:paddingStart">10dp</item>
         <item name="android:paddingEnd">10dp</item>
-        <!--<item name="android:layout_marginStart">10dp</item>-->
         <item name="android:layout_marginEnd">5dp</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">13sp</item>
@@ -904,8 +1023,12 @@
         <item name="strokeColor">@color/toggle_button_outline</item>
     </style>
 
-    <style name="Tag" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="strokeColor">@color/tag_stroke_color</item>
+    <style name="Tag" parent="Widget.Material3.Button.TonalButton">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="backgroundTint">?attr/colorSurfaceContainerHigh</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
     </style>
 
     <style name="ResultButtonTV" parent="@style/RegularButtonTV">
@@ -926,15 +1049,15 @@
     <style name="RegularButtonTV">
         <item name="android:tag">@string/tv_no_focus_tag</item>
         <item name="android:stateListAnimator">@null</item>
-        <item name="strokeColor">@color/transparent</item>
-        <item name="backgroundTint">@null</item>
-        <item name="android:background">@drawable/player_button_tv_attr</item>
-        <item name="rippleColor">@color/white</item>
+        <item name="strokeColor">#4D8FA5FF</item>
+        <item name="backgroundTint">#1F2230</item>
+        <item name="android:background">@drawable/m3_glass_surface</item>
+        <item name="rippleColor">#66A7AFC7</item>
         <item name="android:shadowColor">@color/transparent</item>
 
-        <item name="iconTint">@color/player_on_button_tv_attr</item>
-        <item name="textColor">@color/player_on_button_tv_attr</item>
-        <item name="android:textColor">@color/player_on_button_tv_attr</item>
+        <item name="iconTint">@color/textColor</item>
+        <item name="textColor">@color/textColor</item>
+        <item name="android:textColor">@color/textColor</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">40dp</item>
         <item name="iconSize">16dp</item>

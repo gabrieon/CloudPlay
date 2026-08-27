@@ -44,7 +44,7 @@
                     android:src="@drawable/baseline_remove_24"
                     app:tint="?attr/textColor" />
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/result_sync_current_episodes"
                     style="@style/AppEditStyle"
                     android:layout_width="wrap_content"

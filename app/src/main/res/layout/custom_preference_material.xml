@@ -19,11 +19,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    android:minHeight="64dp"
     android:gravity="center_vertical"
-    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-    android:background="?attr/focusBackground"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:background="?attr/colorSurfaceContainer"
     android:clipToPadding="false"
     android:baselineAligned="false">
 
@@ -41,8 +45,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:textAppearance="?android:attr/textAppearanceListItem"
-            android:ellipsize="marquee"/>
+            android:ellipsize="marquee"
+            android:textColor="?attr/colorOnSurface"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"/>
 
         <TextView
             android:id="@android:id/summary"
@@ -52,8 +57,9 @@
             android:layout_alignStart="@android:id/title"
             android:layout_gravity="start"
             android:textAlignment="viewStart"
-            android:textColor="?android:attr/textColorSecondary"
+            android:textColor="?attr/colorOnSurfaceVariant"
             android:maxLines="10"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
             style="@style/PreferenceSummaryTextStyle"/>
 
     </RelativeLayout>

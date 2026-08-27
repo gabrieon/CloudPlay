@@ -160,6 +160,13 @@
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true" />
 
+        <!-- Compose-based entrypoint for iterative migration of the Home screen -->
+        <activity
+            android:name=".ui.ComposeMainActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout|keyboard|keyboardHidden|navigation|uiMode"
+            android:launchMode="singleTop" />
+
         <activity
             android:name=".ui.account.AccountSelectActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout|keyboard|keyboardHidden"

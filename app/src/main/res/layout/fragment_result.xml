@@ -6,7 +6,7 @@
     style="@style/DarkFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/primaryBlackBackground"
+    android:background="@drawable/m3_window_background"
     android:clickable="true"
     android:focusable="true">
 
@@ -67,13 +67,13 @@
             <include layout="@layout/loading_episode" />
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
-    <!--<ProgressBar
+    <!--<com.google.android.material.progressindicator.CircularProgressIndicator
             android:visibility="visible"
             tools:visibility="gone"
             android:id="@+id/result_loading"
             android:layout_gravity="center"
             android:layout_width="50dp" android:layout_height="50dp">
-    </ProgressBar>-->
+    </com.google.android.material.progressindicator.CircularProgressIndicator>-->
     <LinearLayout
         android:id="@+id/result_loading_error"
 
@@ -115,7 +115,7 @@
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:gravity="center"
-            android:textColor="?attr/textColor" />
+            android:textColor="?attr/colorOnSurface" />
     </LinearLayout>
 
     <LinearLayout
@@ -136,7 +136,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="?attr/primaryBlackBackground"
+                android:background="?attr/colorSurface"
                 android:orientation="vertical">
 
                 <!--
@@ -159,7 +159,7 @@
                         android:layout_margin="@dimen/result_padding"
                         android:orientation="vertical">
 
-                        <androidx.cardview.widget.CardView
+                        <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
                             android:background="@color/grayShimmer"
@@ -172,7 +172,7 @@
 
                 <!--
                 <FrameLayout
-                        android:background="?attr/primaryGrayBackground"
+                        android:background="?attr/colorSurfaceContainer"
                         android:paddingStart="@dimen/result_padding"
                         android:paddingEnd="@dimen/result_padding"
                         android:layout_width="match_parent"
@@ -192,7 +192,7 @@
                             android:layout_gravity="center_vertical|start"
                             android:src="@drawable/ic_baseline_arrow_back_24"
                             android:contentDescription="@string/go_back"
-                            app:tint="?attr/white" />
+                            app:tint="?attr/colorOnSurface" />
 
                     <LinearLayout
                             android:gravity="end"
@@ -208,7 +208,7 @@
                                 android:layout_height="50dp"
                                 android:mediaRouteTypes="user"
                                 android:visibility="gone"
-                                app:mediaRouteButtonTint="?attr/textColor" />
+                                app:mediaRouteButtonTint="?attr/colorOnSurface" />
 
 
                         <ImageView
@@ -227,7 +227,7 @@
                                 android:src="@drawable/ic_outline_share_24"
                                 android:layout_gravity="end|center_vertical"
                                 android:contentDescription="@string/result_share"
-                                app:tint="?attr/textColor" />
+                                app:tint="?attr/colorOnSurface" />
 
                         <ImageView
                                 android:nextFocusUp="@id/result_back"
@@ -245,7 +245,7 @@
                                 android:src="@drawable/ic_baseline_public_24"
                                 android:layout_gravity="end|center_vertical"
                                 android:contentDescription="@string/result_open_in_browser"
-                                app:tint="?attr/textColor" />
+                                app:tint="?attr/colorOnSurface" />
 
                         <ImageView
                                 android:nextFocusUp="@id/result_back"
@@ -263,7 +263,7 @@
                                 android:src="@drawable/search_icon"
                                 android:layout_gravity="end|center_vertical"
                                 android:contentDescription="@string/result_open_in_browser"
-                                app:tint="?attr/textColor" />
+                                app:tint="?attr/colorOnSurface" />
                     </LinearLayout>
                 </FrameLayout>-->
                 <FrameLayout
@@ -334,7 +334,7 @@
                         android:visibility="visible">
 
 
-                        <androidx.cardview.widget.CardView
+                        <com.google.android.material.card.MaterialCardView
                             android:id="@+id/result_poster_holder"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -350,7 +350,7 @@
                                 android:foreground="@drawable/outline_drawable"
                                 android:scaleType="centerCrop"
                                 tools:src="@drawable/example_poster" />
-                        </androidx.cardview.widget.CardView>
+                        </com.google.android.material.card.MaterialCardView>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -363,7 +363,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="5dp"
                                 android:maxLines="2"
-                                android:textColor="?attr/textColor"
+                                android:textColor="?attr/colorOnSurface"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
                                 tools:text="The Perfect Run The Perfect Run" />
@@ -429,7 +429,7 @@
                                     android:nextFocusUp="@id/result_back"
                                     android:nextFocusDown="@id/result_bookmark_Button"
                                     android:paddingTop="5dp"
-                                    android:textColor="?attr/textColor"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textSize="15sp"
                                     tools:text="Ryan Quicksave Romano is an eccentric adventurer with a strange power: he can create a save-point in time and redo his life whenever he dies. Arriving in New Rome, the glitzy capital of sin of a rebuilding Europe, he finds the city torn between mega-corporations, sponsored heroes, superpowered criminals, and true monsters. It's a time of chaos, where potions can grant the power to rule the world and dangers lurk everywhere. " />
 
@@ -454,7 +454,7 @@
                                                 android:layout_marginTop="0dp"
 
                                                 android:layout_marginBottom="10dp"
-                                                android:backgroundTint="?attr/primaryBlackBackground"
+                                                android:backgroundTint="?attr/colorSurface"
 
                                                 android:minWidth="100dp"
                                                 android:nextFocusLeft="@id/result_back"
@@ -476,7 +476,7 @@
                         android:layout_marginBottom="5dp"
                         android:ellipsize="end"
                         android:maxLines="2"
-                        android:textColor="?attr/grayTextColor"
+                        android:textColor="?attr/colorOnSurfaceVariant"
                         android:textSize="15sp"
                         tools:text="Cast: Joe Ligma" />
 
@@ -503,7 +503,7 @@
                         android:id="@+id/result_vpn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="?attr/grayTextColor"
+                        android:textColor="?attr/colorOnSurfaceVariant"
                         android:textSize="15sp"
                         tools:text="@string/vpn_torrent" />
 
@@ -512,7 +512,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:textColor="?attr/grayTextColor"
+                        android:textColor="?attr/colorOnSurfaceVariant"
                         android:textSize="15sp"
                         tools:text="@string/provider_info_meta" />
 
@@ -521,7 +521,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:textColor="?attr/grayTextColor"
+                        android:textColor="?attr/colorOnSurfaceVariant"
                         android:textSize="15sp"
                         tools:text="@string/no_episodes_found" />
 
@@ -532,7 +532,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:text="@string/result_tags"
-                        android:textColor="?attr/textColor"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="17sp"
                         android:textStyle="normal"
                         android:visibility="gone" />
@@ -555,7 +555,7 @@
                         android:gravity="center"
                         android:paddingTop="50dp"
                         android:text="@string/coming_soon"
-                        android:textColor="?attr/textColor"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:visibility="gone" />
@@ -610,19 +610,19 @@
                                     <ImageView
                                         android:id="@+id/episode_play_icon"
                                         style="@style/ContinueWatchingPlayUnderlayProgress"
-                                        app:tint="?attr/black" />
+                                        app:tint="?attr/colorSurface" />
 
                                     <com.google.android.material.progressindicator.CircularProgressIndicator
                                         android:id="@+id/result_resume_series_progress"
                                         style="@style/ContinueWatchingCircularProgress"
-                                        app:indicatorColor="?attr/iconGrayBackground"
+                                        app:indicatorColor="?attr/colorSurfaceContainerHigh"
                                         app:trackColor="@color/skipOpTransparent"
                                         tools:progress="50" />
                                 </FrameLayout>
 
                                 <TextView
                                     android:id="@+id/result_resume_series_title"
-                                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                                    style="@style/Widget.Material3.Button.TextButton"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:clickable="false"
@@ -632,7 +632,7 @@
                                     android:maxLines="1"
                                     android:paddingStart="5dp"
                                     android:textAllCaps="false"
-                                    android:textColor="?attr/iconGrayBackground"
+                                    android:textColor="?attr/colorSurfaceContainerHigh"
                                     android:textSize="15sp"
                                     android:textStyle="bold"
                                     android:visibility="visible"
@@ -642,7 +642,7 @@
 
                                 <TextView
                                     android:id="@+id/result_resume_series_progress_text"
-                                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                                    style="@style/Widget.Material3.Button.TextButton"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:clickable="false"
@@ -651,7 +651,7 @@
                                     android:maxLines="1"
                                     android:paddingStart="5dp"
                                     android:textAllCaps="false"
-                                    android:textColor="?attr/iconGrayBackground"
+                                    android:textColor="?attr/colorSurfaceContainerHigh"
                                     android:textSize="15sp"
                                     android:textStyle="bold"
                                     android:visibility="gone"
@@ -761,7 +761,7 @@
                                       android:layout_gravity="center_vertical"
                                       android:gravity="center_vertical"
                                       tools:text="128MB / 237MB"
-                                      android:textColor="?attr/grayTextColor"
+                                      android:textColor="?attr/colorOnSurfaceVariant"
                                       android:layout_width="wrap_content"
                                       android:layout_height="match_parent" />-->
                         </LinearLayout>
@@ -870,7 +870,7 @@
                                     android:layout_marginBottom="10dp"
                                     android:paddingTop="10dp"
                                     android:paddingBottom="10dp"
-                                    android:textColor="?attr/textColor"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textSize="17sp"
                                     android:textStyle="normal"
                                     tools:text="8 Episodes" />
@@ -891,7 +891,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:textColor="?attr/grayTextColor"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
                                     android:textSize="17sp"
                                     android:textStyle="normal"
                                     tools:text="Episode 1022 will be released in" />
@@ -903,7 +903,7 @@
                                     android:gravity="center"
                                     android:paddingStart="5dp"
                                     android:paddingEnd="5dp"
-                                    android:textColor="?attr/textColor"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textSize="17sp"
                                     android:textStyle="normal"
                                     tools:text="5d 3h 30m" />
@@ -965,7 +965,7 @@
 
 
     <!--
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
             android:layout_width="100dp"
             android:layout_height="150dp"
             app:cardCornerRadius="@dimen/roundedImageRadius"

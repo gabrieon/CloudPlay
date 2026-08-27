@@ -16,12 +16,12 @@
             android:id="@+id/nav_rail_view"
             android:layout_width="@dimen/nav_rail_view_width"
             android:layout_height="match_parent"
-            android:background="?attr/primaryGrayBackground"
+            android:background="?attr/colorSurface"
             android:descendantFocusability="afterDescendants"
-            app:itemIconTint="@color/item_select_color"
-            app:itemTextColor="@color/item_select_color"
             app:headerLayout="@layout/rail_header"
-            app:labelVisibilityMode="unlabeled"
+            app:labelVisibilityMode="selected"
+            app:itemRippleColor="?attr/colorControlHighlight"
+            app:itemActiveIndicatorStyle="@style/Widget.Material3.NavigationRailView.ActiveIndicator"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:menu="@menu/bottom_nav_menu"
@@ -30,20 +30,15 @@
             <include layout="@layout/rail_footer"/>
 
         </com.google.android.material.navigationrail.NavigationRailView>
-        <!-- android:layout_height="65dp"
-                              app:labelVisibilityMode="unlabeled"
 
-                  -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"
             android:layout_height="@dimen/nav_view_height"
             android:layout_width="0dp"
-            app:labelVisibilityMode="unlabeled"
-            android:background="?attr/primaryGrayBackground"
-
-            app:itemIconTint="@color/item_select_color"
-            app:itemTextColor="@color/item_select_color"
-
+            app:labelVisibilityMode="selected"
+            android:background="?attr/colorSurface"
+            app:itemRippleColor="?attr/colorControlHighlight"
+            app:itemActiveIndicatorStyle="@style/Widget.Material3.BottomNavigationView.ActiveIndicator"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

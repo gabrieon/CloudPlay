@@ -20,21 +20,27 @@
         android:textStyle="bold"
         tools:text="Test" />
 
-    <EditText
-        android:id="@+id/nginx_text_input"
-        android:nextFocusRight="@id/cancel_btt"
-        android:nextFocusLeft="@id/apply_btt"
-        android:layout_marginBottom="60dp"
-        android:layout_marginHorizontal="10dp"
-        android:paddingTop="10dp"
-        android:requiresFadingEdge="vertical"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_rowWeight="1"
-        android:autofillHints="no"
-        android:inputType="text"
-        tools:text="nginx.com"
-        tools:ignore="LabelFor" />
+        android:layout_marginBottom="60dp"
+        android:layout_marginHorizontal="10dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nginx_text_input"
+            android:nextFocusRight="@id/cancel_btt"
+            android:nextFocusLeft="@id/apply_btt"
+            android:paddingTop="10dp"
+            android:requiresFadingEdge="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:autofillHints="no"
+            android:inputType="text"
+            tools:text="nginx.com"
+            tools:ignore="LabelFor" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:id="@+id/apply_btt_holder"

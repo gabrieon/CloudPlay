@@ -34,6 +34,8 @@ kotlin {
         lint {
             targetSdk = libs.versions.targetSdk.get().toInt()
         }
+
+        withHostTest {}
     }
 
     jvm()

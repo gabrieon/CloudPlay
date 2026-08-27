@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentActivity
 import coil3.ImageLoader
 import coil3.PlatformContext
 import coil3.SingletonImageLoader
+import com.google.android.material.color.DynamicColors
 import com.lagradost.api.setContext
 import com.lagradost.cloudstream3.BuildConfig
 import com.lagradost.cloudstream3.mvvm.safe
@@ -70,6 +71,7 @@ class ExceptionHandler(
 class CloudStreamApp : Application(), SingletonImageLoader.Factory {
 
     override fun onCreate() {
+        DynamicColors.applyToActivitiesIfAvailable(this)
         super.onCreate()
         // If we want to initialize Coil as early as possible, maybe when
         // loading an image or GIF in a splash screen activity.

@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <color android:color="?attr/primaryBlackBackground"/>
+        <shape>
+            <gradient
+                android:angle="90"
+                android:startColor="#0D1017"
+                android:centerColor="#111827"
+                android:endColor="#0D1017"
+                android:type="linear" />
+        </shape>
     </item>
-    <item android:width="150dp" android:height="150dp" android:gravity="center" android:drawable="@drawable/ic_launcher_foreground">
+    <item>
+        <shape>
+            <gradient
+                android:angle="135"
+                android:startColor="#6C7BFF"
+                android:centerColor="#00000000"
+                android:endColor="#00000000"
+                android:type="linear" />
+        </shape>
     </item>
+    <item
+        android:width="150dp"
+        android:height="150dp"
+        android:gravity="center"
+        android:drawable="@drawable/ic_launcher_foreground" />
 </layer-list>

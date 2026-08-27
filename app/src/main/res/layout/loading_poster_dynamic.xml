@@ -13,7 +13,7 @@
         android:clipToPadding="false"
         android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"

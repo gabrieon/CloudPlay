@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/background_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                     style="@style/EpisodeTextButton"
                     android:layout_gravity="center"/>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

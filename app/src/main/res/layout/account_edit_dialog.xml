@@ -24,7 +24,7 @@
             android:paddingStart="?android:attr/listPreferredItemPaddingStart"
             android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
             android:text="@string/create_account"
-            android:textColor="?attr/textColor"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -37,7 +37,7 @@
         android:layout_marginBottom="60dp"
         android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="@dimen/account_select_linear_item_size"
             android:layout_height="@dimen/account_select_linear_item_size"
             android:layout_gravity="center"
@@ -62,29 +62,35 @@
                 android:background="@color/skipOpTransparent"
                 android:padding="5dp"
                 android:src="@drawable/ic_baseline_edit_24" />
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
-        <EditText
-            android:id="@+id/account_name"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="username"
-            android:hint="@string/default_account"
-            android:inputType="text"
-            android:nextFocusLeft="@id/apply_btt"
-            android:nextFocusRight="@id/cancel_btt"
-            android:nextFocusDown="@id/site_url_input"
-            android:requiresFadingEdge="vertical"
-            android:textColorHint="?attr/grayTextColor"
-            tools:ignore="LabelFor" />
+            android:layout_height="wrap_content">
 
-        <CheckBox
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/account_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="username"
+                android:hint="@string/default_account"
+                android:inputType="text"
+                android:nextFocusLeft="@id/apply_btt"
+                android:nextFocusRight="@id/cancel_btt"
+                android:nextFocusDown="@id/site_url_input"
+                android:requiresFadingEdge="vertical"
+                android:textColorHint="?attr/colorOnSurfaceVariant"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/lockProfileCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="?attr/textColor"
+            android:buttonTint="?attr/colorOnSurface"
             android:text="@string/lock_profile"
-            android:textColor="?attr/grayTextColor" />
+            android:textColor="?attr/colorOnSurfaceVariant" />
 
 
     </LinearLayout>

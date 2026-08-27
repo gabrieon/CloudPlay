@@ -5,14 +5,14 @@
     android:id="@+id/download_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/primaryGrayBackground"
+    android:background="@drawable/m3_window_background"
     android:orientation="vertical"
     tools:context=".ui.download.DownloadFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/primaryGrayBackground">
+        android:background="?attr/colorSurfaceContainer">
         <!--
         For Scroll add to LinearLayout
         app:layout_scrollFlags="scroll|enterAlways"
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="?attr/primaryGrayBackground"
+            android:background="@drawable/m3_glass_surface"
             android:padding="8dp"
             android:visibility="gone">
 
@@ -36,7 +36,7 @@
                 android:padding="8dp"
                 android:layout_gravity="center_vertical"
                 android:nextFocusLeft="@id/navigation_downloads"
-                app:tint="?attr/white" />
+                app:tint="?attr/colorOnSurface" />
 
             <Button
                 android:id="@+id/btnDelete"
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:text="@string/delete"
-                android:textColor="?attr/white"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_gravity="center_vertical" />
 
             <TextView
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:text="@string/downloads_delete_select"
-                android:textColor="?attr/white"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_gravity="center_vertical"
                 android:visibility="gone" />
 
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:text="@string/select_all"
-                android:textColor="?attr/white"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_marginEnd="8dp"
                 android:nextFocusDown="@id/download_list" />
         </LinearLayout>
@@ -77,7 +77,7 @@
             android:id="@+id/download_appbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/primaryGrayBackground"
+            android:background="@drawable/m3_glass_surface"
             android:baselineAligned="false"
             android:focusable="true"
             android:foreground="@drawable/outline_drawable"
@@ -100,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="@string/download_storage_text"
-                    android:textColor="?attr/textColor" />
+                    android:textColor="?attr/colorOnSurface" />
 
                 <com.facebook.shimmer.ShimmerFrameLayout
                     android:id="@+id/download_loading_bytes"
@@ -134,7 +134,7 @@
                     android:visibility="gone"
                     tools:visibility="visible">
 
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:layout_width="fill_parent"
                         android:layout_height="12dp"
                         android:layout_marginBottom="5dp"
@@ -169,7 +169,7 @@
                                 android:layout_weight="0.10"
                                 android:background="@drawable/storage_bar_right" />
                         </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+                    </com.google.android.material.card.MaterialCardView>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -190,7 +190,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:textColor="?attr/textColor"
+                            android:textColor="?attr/colorOnSurface"
                             android:textSize="12sp"
                             tools:text="Used • 30.58GB" />
 
@@ -206,7 +206,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:textColor="?attr/textColor"
+                            android:textColor="?attr/colorOnSurface"
                             android:textSize="12sp"
                             tools:text="App • 30.58GB" />
 
@@ -222,7 +222,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:textColor="?attr/textColor"
+                            android:textColor="?attr/colorOnSurface"
                             android:textSize="12sp"
                             tools:text="Free • 30.58GB" />
                     </LinearLayout>
@@ -245,7 +245,7 @@
 
                     android:layout_gravity="center"
                     android:text="@string/stream"
-                    android:textColor="?attr/textColor" />
+                    android:textColor="?attr/colorOnSurface" />
 
                 <ImageView
                     android:id="@+id/download_stream_button_tv"
@@ -261,7 +261,7 @@
                     android:padding="8dp"
 
                     android:src="@drawable/ic_network_stream"
-                    app:tint="?attr/textColor"></ImageView>
+                    app:tint="?attr/colorOnSurface"></ImageView>
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -269,7 +269,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/primaryBlackBackground"
+        android:background="?attr/colorSurface"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.facebook.shimmer.ShimmerFrameLayout
@@ -320,7 +320,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="bottom"
-            android:background="?attr/primaryGrayBackground"
+            android:background="?attr/colorSurfaceContainer"
             android:orientation="vertical">
 
             <ImageView
@@ -336,7 +336,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/download_queue"
-                android:textColor="?attr/textColor" />
+                android:textColor="?attr/colorOnSurface" />
 
         </LinearLayout>
 
@@ -366,10 +366,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="?attr/primaryGrayBackground"
+            android:backgroundTint="?attr/colorSurfaceContainer"
             android:contentDescription="@string/open_local_video"
             android:src="@drawable/netflix_play"
-            app:tint="?attr/textColor"
+            app:tint="?attr/colorOnSurface"
             android:tooltipText="@string/open_local_video" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -377,7 +377,7 @@
             style="@style/ExtendedFloatingActionButton"
             android:contentDescription="@string/stream"
             android:text="@string/stream"
-            android:textColor="?attr/textColor"
+            android:textColor="?attr/colorOnSurface"
             app:icon="@drawable/ic_network_stream" />
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

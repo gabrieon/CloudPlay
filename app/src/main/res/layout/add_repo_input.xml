@@ -24,7 +24,7 @@
             android:paddingStart="?android:attr/listPreferredItemPaddingStart"
             android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
             android:text="@string/add_repository"
-            android:textColor="?attr/textColor"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -51,7 +51,7 @@
         android:paddingStart="?android:attr/listPreferredItemPaddingStart"
 
         android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-        android:textColor="?attr/grayTextColor"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:textSize="15sp"
         android:visibility="gone"
         tools:text="Gogoanime" />
@@ -63,34 +63,46 @@
         android:layout_marginBottom="60dp"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/repo_name_input"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="username"
-            android:hint="@string/repository_name_hint"
-            android:inputType="text"
-            android:nextFocusLeft="@id/apply_btt"
-            android:nextFocusRight="@id/cancel_btt"
-            android:nextFocusDown="@id/repo_url_input"
-            android:requiresFadingEdge="vertical"
-            android:textColorHint="?attr/grayTextColor"
-            tools:ignore="LabelFor" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/repo_url_input"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/repo_name_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="username"
+                android:hint="@string/repository_name_hint"
+                android:inputType="text"
+                android:nextFocusLeft="@id/apply_btt"
+                android:nextFocusRight="@id/cancel_btt"
+                android:nextFocusDown="@id/repo_url_input"
+                android:requiresFadingEdge="vertical"
+                android:textColorHint="?attr/colorOnSurfaceVariant"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="no"
-            android:hint="@string/repository_url_hint"
-            android:inputType="textUri"
-            android:nextFocusLeft="@id/apply_btt"
-            android:nextFocusRight="@id/cancel_btt"
-            android:nextFocusUp="@id/repo_name_input"
-            android:nextFocusDown="@id/apply_btt"
-            android:requiresFadingEdge="vertical"
-            android:textColorHint="?attr/grayTextColor"
-            tools:ignore="LabelFor" />
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/repo_url_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="no"
+                android:hint="@string/repository_url_hint"
+                android:inputType="textUri"
+                android:nextFocusLeft="@id/apply_btt"
+                android:nextFocusRight="@id/cancel_btt"
+                android:nextFocusUp="@id/repo_name_input"
+                android:nextFocusDown="@id/apply_btt"
+                android:requiresFadingEdge="vertical"
+                android:textColorHint="?attr/colorOnSurfaceVariant"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 

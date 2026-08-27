@@ -24,27 +24,37 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/stream_url"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
-            android:autofillHints="no"
-            android:hint="@string/network_adress_example"
-            android:inputType="textUri"
-            tools:ignore="LabelFor" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/stream_referer"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/stream_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="no"
+                android:hint="@string/network_adress_example"
+                android:inputType="textUri"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
-            android:autofillHints="no"
-            android:hint="@string/referer"
-            android:inputType="textUri"
-            tools:ignore="LabelFor" />
+            android:layout_height="wrap_content">
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/stream_referer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="no"
+                android:hint="@string/referer"
+                android:inputType="textUri"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/hls_switch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
