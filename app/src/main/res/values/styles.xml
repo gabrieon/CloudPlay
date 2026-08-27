@@ -4,20 +4,6 @@
         <item name="android:windowBackground">@drawable/m3_window_background</item>
         <item name="android:colorEdgeEffect">?attr/colorOnSurface</item>
 
-        <item name="colorPrimary">@color/m3_primary</item>
-        <item name="colorPrimaryContainer">@color/m3_primary_container</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/m3_secondary</item>
-        <item name="colorSecondaryContainer">@color/m3_primary_container</item>
-        <item name="colorOnSecondary">@color/white</item>
-        <item name="colorSurface">@color/m3_surface</item>
-        <item name="colorSurfaceVariant">@color/m3_surface_variant</item>
-        <item name="colorSurfaceContainer">@color/m3_surface_container</item>
-        <item name="colorSurfaceContainerHigh">@color/m3_surface_container_high</item>
-        <item name="colorOnSurface">@color/m3_on_surface</item>
-        <item name="colorOnSurfaceVariant">@color/m3_on_surface_variant</item>
-        <item name="colorOutline">@color/m3_outline</item>
-
         <item name="android:navigationBarColor">?attr/colorSurface</item>
         <item name="android:statusBarColor">?attr/colorSurface</item>
 
@@ -63,7 +49,7 @@
 
         <!-- DEF STYLE - Mapping custom attrs to M3 tokens -->
         <item name="colorPrimary">?attr/colorPrimary</item>
-        <item name="colorPrimaryDark">?attr/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">?attr/colorPrimary</item>
         <item name="colorAccent">?attr/colorSecondary</item>
         <item name="textColor">?attr/colorOnSurface</item>
         <item name="colorOnPrimary">?attr/colorOnPrimary</item>
@@ -216,17 +202,23 @@
     </style>
 
     <style name="AmoledMode" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="primaryGrayBackground">@color/black</item>
-        <item name="primaryBlackBackground">@color/black</item>
-        <item name="iconGrayBackground">@color/primaryBlackBackground</item>
-        <item name="boxItemBackground">@color/black</item>
-        <item name="textColor">@color/textColor</item>
-        <item name="grayTextColor">@color/grayTextColor</item>
-        <item name="white">@color/white</item>
-        <item name="black">@color/black</item>
+        <item name="colorSurface">@color/black</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorSurfaceContainer">@color/black</item>
+        <item name="colorSurfaceContainerHigh">@color/black</item>
+        <item name="colorSurfaceContainerLow">@color/black</item>
+        <item name="colorOnSurfaceVariant">@color/grayTextColor</item>
         <item name="colorOnPrimary">@color/whiteText</item>
         <item name="android:windowBackground">@color/black</item>
-        <item name="colorSurface">@color/black</item>
+
+        <item name="primaryGrayBackground">?attr/colorSurfaceContainer</item>
+        <item name="primaryBlackBackground">?attr/colorSurface</item>
+        <item name="iconGrayBackground">?attr/colorSurfaceContainerHigh</item>
+        <item name="boxItemBackground">?attr/colorSurfaceContainerLow</item>
+        <item name="textColor">?attr/colorOnSurface</item>
+        <item name="grayTextColor">?attr/colorOnSurfaceVariant</item>
+        <item name="white">?attr/colorOnSurface</item>
+        <item name="black">?attr/colorSurface</item>
     </style>
 
     <style name="DubButton" parent="@style/SearchBox">
@@ -262,89 +254,106 @@
     </style>
 
     <style name="LightMode" parent="Theme.Material3.Light.NoActionBar">
-        <item name="primaryGrayBackground">@color/lightPrimaryGrayBackground</item>
-        <item name="primaryBlackBackground">@color/lightBitDarkerGrayBackground</item>
-        <item name="iconGrayBackground">@color/lightGrayBackground</item>
-        <item name="boxItemBackground">@color/lightItemBackground</item>
-        <item name="textColor">@color/lightTextColor</item>
-        <item name="grayTextColor">@color/lightGrayTextColor</item>
-        <item name="white">@color/black</item>
-        <item name="black">@color/white</item>
-        <item name="colorOnPrimary">@color/blackText</item>
-        <item name="isLightTheme">true</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-
         <item name="colorSurface">@color/lightBitDarkerGrayBackground</item>
         <item name="colorOnSurface">@color/lightTextColor</item>
         <item name="colorSurfaceContainer">@color/lightPrimaryGrayBackground</item>
+        <item name="colorSurfaceContainerHigh">@color/lightGrayBackground</item>
+        <item name="colorSurfaceContainerLow">@color/lightItemBackground</item>
         <item name="colorOnSurfaceVariant">@color/lightGrayTextColor</item>
-    </style>
+        <item name="colorOnPrimary">@color/blackText</item>
 
-    <style name="DraculaMode" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="primaryGrayBackground">@color/DraculaPrimaryGrayBackground</item>
-        <item name="primaryBlackBackground">@color/DraculaBitDarkerGrayBackground</item>
-        <item name="iconGrayBackground">@color/DraculaGrayBackground</item>
-        <item name="boxItemBackground">@color/DraculaItemBackground</item>
-        <item name="textColor">@color/DraculaTextColor</item>
-        <item name="iconColor">@color/DraculaIconColor</item>
-        <item name="white">@color/DraculaTextColor</item>
-        <item name="black">@color/DraculaPrimaryGrayBackground</item>
-        <item name="colorOnPrimary">@color/DraculaTextColor</item>
+        <item name="primaryGrayBackground">?attr/colorSurfaceContainer</item>
+        <item name="primaryBlackBackground">?attr/colorSurface</item>
+        <item name="iconGrayBackground">?attr/colorSurfaceContainerHigh</item>
+        <item name="boxItemBackground">?attr/colorSurfaceContainerLow</item>
+        <item name="textColor">?attr/colorOnSurface</item>
+        <item name="grayTextColor">?attr/colorOnSurfaceVariant</item>
+        <item name="white">?attr/colorOnSurface</item>
+        <item name="black">?attr/colorSurface</item>
 
-        <item name="colorSurface">@color/DraculaBitDarkerGrayBackground</item>
-        <item name="colorOnSurface">@color/DraculaTextColor</item>
-        <item name="colorSurfaceContainer">@color/DraculaPrimaryGrayBackground</item>
-        <item name="colorOnSurfaceVariant">@color/DraculaGrayTextColor</item>
-    </style>
-
-    <style name="SilentBlueMode" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="primaryGrayBackground">@color/SilentBluePrimaryGrayBackground</item>
-        <item name="primaryBlackBackground">@color/SilentBlueBitDarkerGrayBackground</item>
-        <item name="iconGrayBackground">@color/SilentBlueGrayBackground</item>
-        <item name="boxItemBackground">@color/SilentBlueItemBackground</item>
-        <item name="textColor">@color/SilentBlueTextColor</item>
-        <item name="iconColor">@color/SilentBlueIconColor</item>
-        <item name="white">@color/SilentBlueTextColor</item>
-        <item name="black">@color/SilentBluePrimaryGrayBackground</item>
-        <item name="colorOnPrimary">@color/SilentBlueTextColor</item>
-
-        <item name="colorSurface">@color/SilentBlueBitDarkerGrayBackground</item>
-        <item name="colorOnSurface">@color/SilentBlueTextColor</item>
-        <item name="colorSurfaceContainer">@color/SilentBluePrimaryGrayBackground</item>
-        <item name="colorOnSurfaceVariant">@color/SilentBlueGrayTextColor</item>
-    </style>
-
-    <style name="LavenderMode" parent="Theme.Material3.Light.NoActionBar">
-        <item name="primaryGrayBackground">@color/LavenderPrimaryGrayBackground</item>
-        <item name="primaryBlackBackground">@color/LavenderBitDarkerGrayBackground</item>
-        <item name="iconGrayBackground">@color/LavenderGrayBackground</item>
-        <item name="boxItemBackground">@color/LavenderItemBackground</item>
-        <item name="textColor">@color/LavenderTextColor</item>
-        <item name="iconColor">@color/LavenderIconColor</item>
-        <item name="white">@color/LavenderTextColor</item>
-        <item name="black">@color/LavenderPrimaryGrayBackground</item>
-        <item name="colorOnPrimary">@color/LavenderTextColor</item>
         <item name="isLightTheme">true</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
 
+    <style name="DraculaMode" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorSurface">@color/DraculaBitDarkerGrayBackground</item>
+        <item name="colorOnSurface">@color/DraculaTextColor</item>
+        <item name="colorSurfaceContainer">@color/DraculaPrimaryGrayBackground</item>
+        <item name="colorSurfaceContainerHigh">@color/DraculaGrayBackground</item>
+        <item name="colorSurfaceContainerLow">@color/DraculaItemBackground</item>
+        <item name="colorOnSurfaceVariant">@color/DraculaGrayTextColor</item>
+        <item name="colorOnPrimary">?attr/colorOnSurface</item>
+
+        <item name="primaryGrayBackground">?attr/colorSurfaceContainer</item>
+        <item name="primaryBlackBackground">?attr/colorSurface</item>
+        <item name="iconGrayBackground">?attr/colorSurfaceContainerHigh</item>
+        <item name="boxItemBackground">?attr/colorSurfaceContainerLow</item>
+        <item name="textColor">?attr/colorOnSurface</item>
+        <item name="iconColor">@color/DraculaIconColor</item>
+        <item name="white">?attr/colorOnSurface</item>
+        <item name="black">?attr/colorSurfaceContainer</item>
+    </style>
+
+    <style name="SilentBlueMode" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorSurface">@color/SilentBlueBitDarkerGrayBackground</item>
+        <item name="colorOnSurface">@color/SilentBlueTextColor</item>
+        <item name="colorSurfaceContainer">@color/SilentBluePrimaryGrayBackground</item>
+        <item name="colorSurfaceContainerHigh">@color/SilentBlueGrayBackground</item>
+        <item name="colorSurfaceContainerLow">@color/SilentBlueItemBackground</item>
+        <item name="colorOnSurfaceVariant">@color/SilentBlueGrayTextColor</item>
+        <item name="colorOnPrimary">?attr/colorOnSurface</item>
+
+        <item name="primaryGrayBackground">?attr/colorSurfaceContainer</item>
+        <item name="primaryBlackBackground">?attr/colorSurface</item>
+        <item name="iconGrayBackground">?attr/colorSurfaceContainerHigh</item>
+        <item name="boxItemBackground">?attr/colorSurfaceContainerLow</item>
+        <item name="textColor">?attr/colorOnSurface</item>
+        <item name="iconColor">@color/SilentBlueIconColor</item>
+        <item name="white">?attr/colorOnSurface</item>
+        <item name="black">?attr/colorSurfaceContainer</item>
+    </style>
+
+    <style name="LavenderMode" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorSurface">@color/LavenderBitDarkerGrayBackground</item>
         <item name="colorOnSurface">@color/LavenderTextColor</item>
         <item name="colorSurfaceContainer">@color/LavenderPrimaryGrayBackground</item>
+        <item name="colorSurfaceContainerHigh">@color/LavenderGrayBackground</item>
+        <item name="colorSurfaceContainerLow">@color/LavenderItemBackground</item>
         <item name="colorOnSurfaceVariant">@color/LavenderGrayTextColor</item>
+        <item name="colorOnPrimary">?attr/colorOnSurface</item>
+
+        <item name="primaryGrayBackground">?attr/colorSurfaceContainer</item>
+        <item name="primaryBlackBackground">?attr/colorSurface</item>
+        <item name="iconGrayBackground">?attr/colorSurfaceContainerHigh</item>
+        <item name="boxItemBackground">?attr/colorSurfaceContainerLow</item>
+        <item name="textColor">?attr/colorOnSurface</item>
+        <item name="iconColor">@color/LavenderIconColor</item>
+        <item name="white">?attr/colorOnSurface</item>
+        <item name="black">?attr/colorSurfaceContainer</item>
+
+        <item name="isLightTheme">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
     <style name="MonetMode" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="primaryGrayBackground">@color/material_dynamic_neutral20</item>
-        <item name="primaryBlackBackground">@color/material_dynamic_neutral10</item>
-        <item name="iconGrayBackground">@color/material_dynamic_neutral20</item>
-        <item name="boxItemBackground">@color/material_dynamic_neutral20</item>
-        <item name="textColor">@color/material_dynamic_neutral90</item>
-        <item name="grayTextColor">@color/material_dynamic_neutral60</item>
-        <item name="white">@color/material_dynamic_neutral90</item>
-        <item name="black">@color/material_dynamic_neutral10</item>
+        <item name="colorSurface">@color/material_dynamic_neutral10</item>
+        <item name="colorOnSurface">@color/material_dynamic_neutral90</item>
+        <item name="colorSurfaceContainer">@color/material_dynamic_neutral20</item>
+        <item name="colorSurfaceContainerHigh">@color/material_dynamic_neutral20</item>
+        <item name="colorSurfaceContainerLow">@color/material_dynamic_neutral20</item>
+        <item name="colorOnSurfaceVariant">@color/material_dynamic_neutral60</item>
         <item name="colorOnPrimary">@color/material_on_primary_emphasis_medium</item>
+
+        <item name="primaryGrayBackground">?attr/colorSurfaceContainer</item>
+        <item name="primaryBlackBackground">?attr/colorSurface</item>
+        <item name="iconGrayBackground">?attr/colorSurfaceContainerHigh</item>
+        <item name="boxItemBackground">?attr/colorSurfaceContainerLow</item>
+        <item name="textColor">?attr/colorOnSurface</item>
+        <item name="grayTextColor">?attr/colorOnSurfaceVariant</item>
+        <item name="white">?attr/colorOnSurface</item>
+        <item name="black">?attr/colorSurface</item>
     </style>
 
     <style name="OverlayPrimaryColorNormal">
