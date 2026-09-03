@@ -1,3 +1,4 @@
+https://keepandroidopen.org/
 # CloudPlay - A Material 3 UI - Fork of the Original CloudStream App
 
 **⚠️ Warning: By default, this app doesn't provide any video sources; you have to install extensions to add functionality to the app.**
