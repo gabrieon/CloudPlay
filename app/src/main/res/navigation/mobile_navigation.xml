@@ -170,7 +170,7 @@
 
     <fragment
         android:id="@+id/navigation_library"
-        android:name="com.lagradost.cloudstream3.ui.library.LibraryFragment"
+        android:name="com.lagradost.cloudstream3.ui.library.LibraryComposeFragment"
         android:label="@string/library"
         app:enterAnim="@anim/enter_anim"
         app:exitAnim="@anim/exit_anim"
@@ -309,7 +309,7 @@
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.lagradost.cloudstream3.ui.search.SearchFragment"
+        android:name="com.lagradost.cloudstream3.ui.search.SearchComposeFragment"
         android:label="@string/title_search"
         app:enterAnim="@anim/enter_anim"
         app:exitAnim="@anim/exit_anim"
@@ -324,7 +324,7 @@
 
     <fragment
         android:id="@+id/navigation_downloads"
-        android:name="com.lagradost.cloudstream3.ui.download.DownloadFragment"
+        android:name="com.lagradost.cloudstream3.ui.download.DownloadComposeFragment"
         android:label="@string/title_downloads"
         app:enterAnim="@anim/enter_anim"
         app:exitAnim="@anim/exit_anim"
@@ -356,7 +356,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="com.lagradost.cloudstream3.ui.settings.SettingsFragment"
+        android:name="com.lagradost.cloudstream3.ui.settings.SettingsComposeFragment"
         android:layout_height="match_parent"
         android:label="@string/title_settings"
         app:enterAnim="@anim/enter_anim"

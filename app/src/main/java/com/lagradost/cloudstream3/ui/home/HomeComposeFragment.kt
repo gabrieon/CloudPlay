@@ -7,13 +7,20 @@ import android.view.ViewGroup
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -21,27 +28,27 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import coil3.compose.AsyncImage
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.lagradost.cloudstream3.SearchResponse
 import com.lagradost.cloudstream3.LoadResponse
+import com.lagradost.cloudstream3.SearchResponse
 import com.lagradost.cloudstream3.mvvm.Resource
 import com.lagradost.cloudstream3.ui.CloudPlayTheme
+import com.lagradost.cloudstream3.ui.account.AccountHelper.showAccountSelectLinear
+import com.lagradost.cloudstream3.ui.home.HomeFragment.Companion.loadHomepageList
+import com.lagradost.cloudstream3.ui.home.HomeFragment.Companion.selectHomepage
 import com.lagradost.cloudstream3.ui.search.SEARCH_ACTION_LOAD
 import com.lagradost.cloudstream3.ui.search.SEARCH_ACTION_PLAY_FILE
 import com.lagradost.cloudstream3.ui.search.SearchClickCallback
 import com.lagradost.cloudstream3.ui.search.SearchHelper
-import com.lagradost.cloudstream3.ui.home.HomeFragment.Companion.loadHomepageList
-import com.lagradost.cloudstream3.ui.home.HomeFragment.Companion.selectHomepage
-import com.lagradost.cloudstream3.ui.account.AccountHelper.showAccountSelectLinear
-import com.lagradost.cloudstream3.ui.result.ResultData
-import com.lagradost.cloudstream3.utils.UIHelper
 
 class HomeComposeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by activityViewModels()
-
     private var bottomSheetDialog: BottomSheetDialog? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Local mutable states that will be updated from LiveData observers below
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         val pageState = mutableStateOf<Resource<Map<String, HomeViewModel.ExpandableHomepageList>>>(Resource.Loading())
         val previewState = mutableStateOf<Resource<Pair<Boolean, List<LoadResponse>>>>(Resource.Loading())
         val randomState = mutableStateOf<List<SearchResponse>?>(null)
@@ -49,94 +56,124 @@ class HomeComposeFragment : Fragment() {
         val composeView = ComposeView(requireContext()).apply {
             setContent {
                 CloudPlayTheme {
-                    Surface(color = MaterialTheme.colorScheme.background) {
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = MaterialTheme.colorScheme.background
+                    ) {
                         Box(modifier = Modifier.fillMaxSize()) {
-                            Column(modifier = Modifier.fillMaxSize().padding(12.dp)) {
-                                TopBar(
-                                    apiName = homeViewModel.apiName.value ?: "",
-                                    onSelectApi = {
-                                        requireContext().selectHomepage(homeViewModel.apiName.value) { api ->
-                                            homeViewModel.loadAndCancel(api, forceReload = true, fromUI = true)
-                                        }
-                                    },
-                                    onAccount = {
-                                        activity?.showAccountSelectLinear()
-                                    }
-                                )
-                                Spacer(modifier = Modifier.height(8.dp))
-
-                                // Preview carousel (if available)
-                                when (val prev = previewState.value) {
-                                    is Resource.Success -> {
-                                        val pair = prev.value
-                                        val responses = pair.second
-                                        if (responses.isNotEmpty()) {
-                                            Text("Preview", style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(start = 8.dp))
-                                            Spacer(modifier = Modifier.height(8.dp))
-                                            LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                                items(responses) { resp ->
-                                                    // show poster/title
-                                                    val title = resp.name
-                                                    PosterCardForLoad(resp, onClick = { loadResp ->
-                                                        val rootView = requireActivity().window.decorView
-                                                        // Call HomeViewModel.click with LoadClickCallback
-                                                        val action = 0
-                                                        val loadCb = LoadClickCallback(action, rootView, -1, loadResp)
-                                                        homeViewModel.click(loadCb)
-                                                    })
-                                                }
-                                                if (pair.first) {
-                                                    item {
-                                                        TextButton(onClick = { homeViewModel.loadMoreHomeScrollResponses() }) { Text("Load more") }
-                                                    }
-                                                }
+                            LazyColumn(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(horizontal = 16.dp),
+                                contentPadding = PaddingValues(bottom = 80.dp)
+                            ) {
+                                item {
+                                    Spacer(modifier = Modifier.height(12.dp))
+                                    HomeTopBar(
+                                        apiName = homeViewModel.apiName.value ?: "Select Provider",
+                                        onSelectApi = {
+                                            requireContext().selectHomepage(homeViewModel.apiName.value) { api ->
+                                                homeViewModel.loadAndCancel(api, forceReload = true, fromUI = true)
                                             }
-                                            Spacer(modifier = Modifier.height(12.dp))
-                                    }
-                                    }
-                                    else -> {}
+                                        },
+                                        onAccount = {
+                                            activity?.showAccountSelectLinear()
+                                        }
+                                    )
+                                    Spacer(modifier = Modifier.height(16.dp))
                                 }
 
+                                // Featured Preview Carousel
+                                item {
+                                    when (val prev = previewState.value) {
+                                        is Resource.Success -> {
+                                            val responses = prev.value.second
+                                            if (responses.isNotEmpty()) {
+                                                Text(
+                                                    text = "Featured",
+                                                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                                                    color = MaterialTheme.colorScheme.onBackground,
+                                                    modifier = Modifier.padding(bottom = 12.dp)
+                                                )
+                                                HeroPreviewCarousel(
+                                                    items = responses,
+                                                    onItemClick = { loadResp ->
+                                                        val rootView = requireActivity().window.decorView
+                                                        val loadCb = LoadClickCallback(0, rootView, -1, loadResp)
+                                                        homeViewModel.click(loadCb)
+                                                    }
+                                                )
+                                                Spacer(modifier = Modifier.height(24.dp))
+                                            }
+                                        }
+                                        is Resource.Loading -> {
+                                            LinearProgressIndicator(
+                                                modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .padding(vertical = 8.dp)
+                                            )
+                                        }
+                                        else -> {}
+                                    }
+                                }
+
+                                // Homepage Sections
                                 when (val ps = pageState.value) {
                                     is Resource.Success -> {
                                         val map = ps.value
-                                        for ((key, value) in map) {
-                                            Section(title = key, items = value.list.list) { item ->
-                                                // use activity root as fallback view
-                                                val rootView = requireActivity().window.decorView
-                                                val action = if (item is com.lagradost.cloudstream3.utils.DataStoreHelper.ResumeWatchingResult) SEARCH_ACTION_PLAY_FILE else SEARCH_ACTION_LOAD
-                                                SearchHelper.handleSearchClickCallback(
-                                                    SearchClickCallback(action, rootView, -1, item)
+                                        items(map.entries.toList()) { entry ->
+                                            HomeSection(
+                                                title = entry.key,
+                                                items = entry.value.list.list,
+                                                onClick = { item ->
+                                                    val rootView = requireActivity().window.decorView
+                                                    val action = if (item is com.lagradost.cloudstream3.utils.DataStoreHelper.ResumeWatchingResult) SEARCH_ACTION_PLAY_FILE else SEARCH_ACTION_LOAD
+                                                    SearchHelper.handleSearchClickCallback(
+                                                        SearchClickCallback(action, rootView, -1, item)
+                                                    )
+                                                }
+                                            )
+                                            Spacer(modifier = Modifier.height(20.dp))
+                                        }
+                                    }
+                                    is Resource.Loading -> {
+                                        item {
+                                            Box(
+                                                modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .height(200.dp),
+                                                contentAlignment = Alignment.Center
+                                            ) {
+                                                CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+                                            }
+                                        }
+                                    }
+                                    is Resource.Failure -> {
+                                        item {
+                                            Card(
+                                                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                                                modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .padding(vertical = 16.dp)
+                                            ) {
+                                                Text(
+                                                    text = "Error: ${ps.errorString}",
+                                                    color = MaterialTheme.colorScheme.onErrorContainer,
+                                                    modifier = Modifier.padding(16.dp)
                                                 )
                                             }
-                                            Spacer(modifier = Modifier.height(12.dp))
                                         }
                                     }
-
-                                    is Resource.Loading -> {
-                                        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                                            Text("Loading…", fontSize = 18.sp)
-                                        }
-                                    }
-
-                                    is Resource.Failure -> {
-                                        val msg = ps.errorString
-                                        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                                            Text("Error: $msg", color = MaterialTheme.colorScheme.error)
-                                        }
-                                    }
-
                                     else -> {}
                                 }
                             }
 
-                            // Floating Random FAB
+                            // Floating Random Action Button
                             val showRandom = randomState.value?.isNotEmpty() == true
                             if (showRandom) {
                                 ExtendedFloatingActionButton(
                                     onClick = {
-                                        val distinct = randomState.value!!.distinctBy { it.url }
-                                        val pick = distinct.randomOrNull()
+                                        val pick = randomState.value?.distinctBy { it.url }?.randomOrNull()
                                         pick?.let { item ->
                                             val rootView = requireActivity().window.decorView
                                             SearchHelper.handleSearchClickCallback(
@@ -144,11 +181,13 @@ class HomeComposeFragment : Fragment() {
                                             )
                                         }
                                     },
+                                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                                     modifier = Modifier
                                         .align(Alignment.BottomEnd)
                                         .padding(16.dp)
                                 ) {
-                                    Text("Random")
+                                    Text("Random Pick", fontWeight = FontWeight.SemiBold)
                                 }
                             }
                         }
@@ -157,7 +196,6 @@ class HomeComposeFragment : Fragment() {
             }
         }
 
-        // Observe LiveData lifecycle-aware and update Compose states
         homeViewModel.page.observe(viewLifecycleOwner) { pageState.value = it }
         homeViewModel.preview.observe(viewLifecycleOwner) { previewState.value = it }
         homeViewModel.randomItems.observe(viewLifecycleOwner) { randomState.value = it }
@@ -170,12 +208,15 @@ class HomeComposeFragment : Fragment() {
             }
             if (bottomSheetDialog != null) return@observe
             val (expandableList, deleteCallback) = item
-            bottomSheetDialog = activity?.loadHomepageList(expandableList, deleteCallback = deleteCallback, expandCallback = { name ->
-                homeViewModel.expandAndReturn(name)
-            }, dismissCallback = {
-                homeViewModel.popup(null)
-                bottomSheetDialog = null
-            })
+            bottomSheetDialog = activity?.loadHomepageList(
+                expandableList,
+                deleteCallback = deleteCallback,
+                expandCallback = { name -> homeViewModel.expandAndReturn(name) },
+                dismissCallback = {
+                    homeViewModel.popup(null)
+                    bottomSheetDialog = null
+                }
+            )
         }
 
         return composeView
@@ -183,65 +224,140 @@ class HomeComposeFragment : Fragment() {
 }
 
 @Composable
-fun TopBar(apiName: String, onSelectApi: () -> Unit, onAccount: () -> Unit) {
-    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-        Text(apiName, style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
-        TextButton(onClick = onSelectApi) { Text("Source") }
-        TextButton(onClick = onAccount) { Text("Account") }
-    }
-}
-
-@Composable
-fun Section(title: String, items: List<SearchResponse>, onClick: (SearchResponse) -> Unit) {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Text(title, style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(start = 8.dp))
-        Spacer(modifier = Modifier.height(8.dp))
-        LazyRow(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            items(items) { item ->
-                PosterCard(item, onClick)
-            }
-        }
-    }
-}
-
-@Composable
-fun PosterCard(item: SearchResponse, onClick: (SearchResponse) -> Unit) {
-    Column(modifier = Modifier.width(140.dp).clickable { onClick(item) }) {
-        if (!item.posterUrl.isNullOrEmpty()) {
-            AsyncImage(
-                model = item.posterUrl,
-                contentDescription = item.name,
-                modifier = Modifier
-                    .height(200.dp)
-                    .fillMaxWidth()
+fun HomeTopBar(apiName: String, onSelectApi: () -> Unit, onAccount: () -> Unit) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = "CloudPlay",
+                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.ExtraBold),
+                color = MaterialTheme.colorScheme.primary
             )
-        } else {
-            // Fallback placeholder
-            Box(modifier = Modifier
-                .height(200.dp)
-                .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.surface), contentAlignment = Alignment.Center) {
-                Text("No image", style = MaterialTheme.typography.bodySmall)
-            }
+            AssistChip(
+                onClick = onSelectApi,
+                label = { Text(apiName, fontSize = 12.sp) },
+                colors = AssistChipDefaults.assistChipColors(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    labelColor = MaterialTheme.colorScheme.onSecondaryContainer
+                )
+            )
         }
-        Spacer(modifier = Modifier.height(6.dp))
-        Text(item.name ?: "", maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(horizontal = 4.dp))
+        IconButton(
+            onClick = onAccount,
+            colors = IconButtonDefaults.iconButtonColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant
+            )
+        ) {
+            Text("👤", fontSize = 18.sp)
+        }
     }
 }
 
 @Composable
-fun PosterCardForLoad(item: LoadResponse, onClick: (LoadResponse) -> Unit) {
-    Column(modifier = Modifier.width(160.dp).clickable { onClick(item) }) {
-        val title = item.name
-        val poster = item.posterUrl
-        if (!poster.isNullOrEmpty()) {
-            AsyncImage(model = poster, contentDescription = title, modifier = Modifier.height(220.dp).fillMaxWidth())
-        } else {
-            Box(modifier = Modifier.height(220.dp).fillMaxWidth().background(MaterialTheme.colorScheme.surface), contentAlignment = Alignment.Center) {
-                Text("No image", style = MaterialTheme.typography.bodySmall)
+fun HeroPreviewCarousel(items: List<LoadResponse>, onItemClick: (LoadResponse) -> Unit) {
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        items(items) { item ->
+            ElevatedCard(
+                shape = RoundedCornerShape(20.dp),
+                modifier = Modifier
+                    .width(280.dp)
+                    .height(160.dp)
+                    .clickable { onItemClick(item) },
+                colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+            ) {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    if (!item.posterUrl.isNullOrEmpty()) {
+                        AsyncImage(
+                            model = item.posterUrl,
+                            contentDescription = item.name,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(
+                                Brush.verticalGradient(
+                                    colors = listOf(Color.Transparent, Color.Black.copy(alpha = 0.85f)),
+                                    startY = 50f
+                                )
+                            )
+                    )
+                    Text(
+                        text = item.name,
+                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                        color = Color.White,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier
+                            .align(Alignment.BottomStart)
+                            .padding(12.dp)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun HomeSection(title: String, items: List<SearchResponse>, onClick: (SearchResponse) -> Unit) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+            color = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        LazyRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            items(items) { item ->
+                PosterCardM3(item, onClick)
+            }
+        }
+    }
+}
+
+@Composable
+fun PosterCardM3(item: SearchResponse, onClick: (SearchResponse) -> Unit) {
+    Column(
+        modifier = Modifier
+            .width(130.dp)
+            .clickable { onClick(item) }
+    ) {
+        ElevatedCard(
+            shape = RoundedCornerShape(16.dp),
+            modifier = Modifier
+                .width(130.dp)
+                .height(195.dp),
+            colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+        ) {
+            if (!item.posterUrl.isNullOrEmpty()) {
+                AsyncImage(
+                    model = item.posterUrl,
+                    contentDescription = item.name,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+            } else {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("No Poster", style = MaterialTheme.typography.labelSmall)
+                }
             }
         }
         Spacer(modifier = Modifier.height(6.dp))
-        Text(title, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(horizontal = 4.dp))
+        Text(
+            text = item.name ?: "",
+            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+            color = MaterialTheme.colorScheme.onBackground
+        )
     }
 }
