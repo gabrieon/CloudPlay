@@ -33,6 +33,9 @@ jobs:
       - name: Build app debug APK
         run: ./gradlew :app:assembleDebug --no-daemon --console=plain
 
+      - name: Verify APK exists
+        run: ls -la app/build/outputs/apk/debug/app-debug.apk
+
       - name: Create GitHub Release and Upload APK
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
