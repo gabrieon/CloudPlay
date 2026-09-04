@@ -3,6 +3,7 @@ package com.lagradost.cloudstream3.utils
 import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.ContentUris
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -139,6 +140,50 @@ object TvChannelUtils {
         val componentName = ComponentName(context, MainActivity::class.java)
         val iconUri = "android.resource://${context.packageName}/mipmap/ic_launcher".toUri()
         val inputId = TvContractCompat.buildInputId(componentName)
+
+        try {
+            // Try to find existing channel for this input and update it if present
+            context.contentResolver.query(
+                TvContractCompat.Channels.CONTENT_URI,
+                arrayOf(
+                    TvContractCompat.Channels._ID,
+                    TvContractCompat.Channels.COLUMN_INPUT_ID,
+                    TvContractCompat.Channels.COLUMN_DISPLAY_NAME
+                ),
+                null,
+                null,
+                null
+            )?.use { cursor ->
+                while (cursor.moveToNext()) {
+                    val id = cursor.getLong(cursor.getColumnIndexOrThrow(TvContractCompat.Channels._ID))
+                    val existingInputId = cursor.getString(cursor.getColumnIndexOrThrow(TvContractCompat.Channels.COLUMN_INPUT_ID))
+                    if (existingInputId == inputId) {
+                        // Update display name and icon
+                        val channelUri = ContentUris.withAppendedId(TvContractCompat.Channels.CONTENT_URI, id)
+                        val values = ContentValues().apply {
+                            put(TvContractCompat.Channels.COLUMN_DISPLAY_NAME, context.getString(R.string.app_name))
+                            put(TvContractCompat.Channels.COLUMN_APP_LINK_ICON_URI, iconUri.toString())
+                        }
+                        try {
+                            val rowsUpdated = context.contentResolver.update(channelUri, values, null, null)
+                            if (rowsUpdated > 0) {
+                                TvContractCompat.requestChannelBrowsable(context, id)
+                                Log.d("TvChannelUtils", "Updated existing channel: $id")
+                                return
+                            } else {
+                                Log.w("TvChannelUtils", "Failed to update channel: $id")
+                            }
+                        } catch (e: Exception) {
+                            Log.e("TvChannelUtils", "Error updating channel: ${e.message}", e)
+                        }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("TvChannelUtils", "Query failed when checking existing channels: ${e.message}", e)
+        }
+
+        // If no existing channel updated, create a new one
         val channel = Channel.Builder()
             .setType(TvContractCompat.Channels.TYPE_PREVIEW)
             .setAppLinkIconUri(iconUri)
