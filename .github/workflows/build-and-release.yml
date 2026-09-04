@@ -45,7 +45,14 @@ jobs:
         run: find app/build/outputs -type f -name "*.apk" 2>/dev/null || echo "No APKs found"
 
       - name: Verify APK exists
-        run: ls -la app/build/outputs/apk/debug/app-debug.apk
+        run: |
+          if [ ! -f app/build/outputs/apk/debug/app-debug.apk ]; then
+            echo "APK not found! Checking build directory structure:"
+            find app/build -type d -name apk 2>/dev/null || echo "No apk directory found"
+            find app/build -type f -name "*.apk" 2>/dev/null || echo "No APK files found"
+            exit 1
+          fi
+          ls -la app/build/outputs/apk/debug/app-debug.apk
 
       - name: Create GitHub Release and Upload APK
         env:
