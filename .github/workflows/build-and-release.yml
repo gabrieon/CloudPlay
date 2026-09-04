@@ -32,6 +32,17 @@ jobs:
 
       - name: Build app debug APK
         run: ./gradlew :app:assembleDebug --no-daemon --console=plain
+        env:
+          SIMKL_CLIENT_ID: ${{ secrets.SIMKL_CLIENT_ID }}
+          SIMKL_CLIENT_SECRET: ${{ secrets.SIMKL_CLIENT_SECRET }}
+          TRAKT_CLIENT_ID: ${{ secrets.TRAKT_CLIENT_ID }}
+          MDL_API_KEY: ${{ secrets.MDL_API_KEY }}
+          MAL_KEY: ${{ secrets.MAL_KEY }}
+          ANILIST_KEY: ${{ secrets.ANILIST_KEY }}
+
+      - name: Debug build output
+        if: always()
+        run: find app/build/outputs -type f -name "*.apk" 2>/dev/null || echo "No APKs found"
 
       - name: Verify APK exists
         run: ls -la app/build/outputs/apk/debug/app-debug.apk
