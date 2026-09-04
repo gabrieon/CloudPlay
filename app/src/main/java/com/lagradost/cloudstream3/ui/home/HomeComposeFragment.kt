@@ -10,6 +10,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -52,6 +55,7 @@ class HomeComposeFragment : Fragment() {
         val pageState = mutableStateOf<Resource<Map<String, HomeViewModel.ExpandableHomepageList>>>(Resource.Loading())
         val previewState = mutableStateOf<Resource<Pair<Boolean, List<LoadResponse>>>>(Resource.Loading())
         val randomState = mutableStateOf<List<SearchResponse>?>(null)
+        val resumeState = mutableStateOf<List<SearchResponse>?>(null)
 
         val composeView = ComposeView(requireContext()).apply {
             setContent {
@@ -62,66 +66,69 @@ class HomeComposeFragment : Fragment() {
                     ) {
                         Box(modifier = Modifier.fillMaxSize()) {
                             LazyColumn(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(horizontal = 16.dp),
-                                contentPadding = PaddingValues(bottom = 80.dp)
+                                modifier = Modifier.fillMaxSize(),
+                                contentPadding = PaddingValues(bottom = 90.dp)
                             ) {
-                                item {
-                                    Spacer(modifier = Modifier.height(12.dp))
-                                    HomeTopBar(
-                                        apiName = homeViewModel.apiName.value ?: "Select Provider",
-                                        onSelectApi = {
-                                            requireContext().selectHomepage(homeViewModel.apiName.value) { api ->
-                                                homeViewModel.loadAndCancel(api, forceReload = true, fromUI = true)
-                                            }
-                                        },
-                                        onAccount = {
-                                            activity?.showAccountSelectLinear()
-                                        }
-                                    )
-                                    Spacer(modifier = Modifier.height(16.dp))
-                                }
-
-                                // Featured Preview Carousel
+                                // Apple TV Style Hero Banner Section
                                 item {
                                     when (val prev = previewState.value) {
                                         is Resource.Success -> {
                                             val responses = prev.value.second
                                             if (responses.isNotEmpty()) {
-                                                Text(
-                                                    text = "Featured",
-                                                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                                                    color = MaterialTheme.colorScheme.onBackground,
-                                                    modifier = Modifier.padding(bottom = 12.dp)
-                                                )
-                                                HeroPreviewCarousel(
+                                                AppleTvHeroBanner(
                                                     items = responses,
-                                                    onItemClick = { loadResp ->
+                                                    apiName = homeViewModel.apiName.value ?: "Provider",
+                                                    onSelectApi = {
+                                                        requireContext().selectHomepage(homeViewModel.apiName.value) { api ->
+                                                            homeViewModel.loadAndCancel(api, forceReload = true, fromUI = true)
+                                                        }
+                                                    },
+                                                    onAccount = { activity?.showAccountSelectLinear() },
+                                                    onPlayClick = { loadResp ->
                                                         val rootView = requireActivity().window.decorView
                                                         val loadCb = LoadClickCallback(0, rootView, -1, loadResp)
                                                         homeViewModel.click(loadCb)
                                                     }
                                                 )
-                                                Spacer(modifier = Modifier.height(24.dp))
                                             }
                                         }
                                         is Resource.Loading -> {
-                                            LinearProgressIndicator(
+                                            Box(
                                                 modifier = Modifier
                                                     .fillMaxWidth()
-                                                    .padding(vertical = 8.dp)
-                                            )
+                                                    .height(380.dp),
+                                                contentAlignment = Alignment.Center
+                                            ) {
+                                                CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+                                            }
                                         }
                                         else -> {}
                                     }
                                 }
 
-                                // Homepage Sections
+                                // Continue Watching Row (Apple TV Style)
+                                item {
+                                    val continueItems = resumeState.value
+                                    if (!continueItems.isNullOrEmpty()) {
+                                        Spacer(modifier = Modifier.height(16.dp))
+                                        ContinueWatchingSection(
+                                            items = continueItems,
+                                            onItemClick = { item ->
+                                                val rootView = requireActivity().window.decorView
+                                                SearchHelper.handleSearchClickCallback(
+                                                    SearchClickCallback(SEARCH_ACTION_PLAY_FILE, rootView, -1, item)
+                                                )
+                                            }
+                                        )
+                                    }
+                                }
+
+                                // Homepage Categories
                                 when (val ps = pageState.value) {
                                     is Resource.Success -> {
                                         val map = ps.value
                                         items(map.entries.toList()) { entry ->
+                                            Spacer(modifier = Modifier.height(20.dp))
                                             HomeSection(
                                                 title = entry.key,
                                                 items = entry.value.list.list,
@@ -133,7 +140,6 @@ class HomeComposeFragment : Fragment() {
                                                     )
                                                 }
                                             )
-                                            Spacer(modifier = Modifier.height(20.dp))
                                         }
                                     }
                                     is Resource.Loading -> {
@@ -154,7 +160,7 @@ class HomeComposeFragment : Fragment() {
                                                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
                                                 modifier = Modifier
                                                     .fillMaxWidth()
-                                                    .padding(vertical = 16.dp)
+                                                    .padding(16.dp)
                                             ) {
                                                 Text(
                                                     text = "Error: ${ps.errorString}",
@@ -199,6 +205,7 @@ class HomeComposeFragment : Fragment() {
         homeViewModel.page.observe(viewLifecycleOwner) { pageState.value = it }
         homeViewModel.preview.observe(viewLifecycleOwner) { previewState.value = it }
         homeViewModel.randomItems.observe(viewLifecycleOwner) { randomState.value = it }
+        homeViewModel.resumeWatching.observe(viewLifecycleOwner) { resumeState.value = it }
 
         homeViewModel.popup.observe(viewLifecycleOwner) { item ->
             if (item == null) {
@@ -224,80 +231,240 @@ class HomeComposeFragment : Fragment() {
 }
 
 @Composable
-fun HomeTopBar(apiName: String, onSelectApi: () -> Unit, onAccount: () -> Unit) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
+fun AppleTvHeroBanner(
+    items: List<LoadResponse>,
+    apiName: String,
+    onSelectApi: () -> Unit,
+    onAccount: () -> Unit,
+    onPlayClick: (LoadResponse) -> Unit
+) {
+    val pagerState = rememberPagerState(pageCount = { items.size })
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(440.dp)
     ) {
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = "CloudPlay",
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.ExtraBold),
-                color = MaterialTheme.colorScheme.primary
-            )
-            AssistChip(
-                onClick = onSelectApi,
-                label = { Text(apiName, fontSize = 12.sp) },
-                colors = AssistChipDefaults.assistChipColors(
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    labelColor = MaterialTheme.colorScheme.onSecondaryContainer
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier.fillMaxSize()
+        ) { page ->
+            val item = items[page]
+            Box(modifier = Modifier.fillMaxSize()) {
+                if (!item.posterUrl.isNullOrEmpty()) {
+                    AsyncImage(
+                        model = item.posterUrl,
+                        contentDescription = item.name,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
+                // Gradient Scrim Overlay
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            Brush.verticalGradient(
+                                colors = listOf(
+                                    Color.Black.copy(alpha = 0.5f),
+                                    Color.Transparent,
+                                    Color.Black.copy(alpha = 0.7f),
+                                    Color.Black
+                                )
+                            )
+                        )
                 )
-            )
+
+                // Hero Item Details
+                Column(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(horizontal = 20.dp, vertical = 24.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = item.name,
+                        style = MaterialTheme.typography.headlineLarge.copy(
+                            fontWeight = FontWeight.ExtraBold,
+                            fontSize = 32.sp
+                        ),
+                        color = Color.White,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = "${item.apiName} • ${item.type.name}",
+                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
+                        color = Color.White.copy(alpha = 0.8f)
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Apple TV Style Play & Bookmark Buttons
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        Button(
+                            onClick = { onPlayClick(item) },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color.White,
+                                contentColor = Color.Black
+                            ),
+                            shape = CircleShape,
+                            contentPadding = PaddingValues(horizontal = 28.dp, vertical = 12.dp)
+                        ) {
+                            Text("▶  Play", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                        }
+
+                        IconButton(
+                            onClick = { onPlayClick(item) },
+                            modifier = Modifier
+                                .size(44.dp)
+                                .clip(CircleShape)
+                                .background(Color.White.copy(alpha = 0.25f))
+                        ) {
+                            Text("+", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(14.dp))
+
+                    // Pager Indicator Dots
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        repeat(items.size) { index ->
+                            val isSelected = pagerState.currentPage == index
+                            Box(
+                                modifier = Modifier
+                                    .height(6.dp)
+                                    .width(if (isSelected) 20.dp else 6.dp)
+                                    .clip(CircleShape)
+                                    .background(if (isSelected) Color.White else Color.White.copy(alpha = 0.4f))
+                            )
+                        }
+                    }
+                }
+            }
         }
-        IconButton(
-            onClick = onAccount,
-            colors = IconButtonDefaults.iconButtonColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant
-            )
+
+        // Top Header Overlay (Logo, Source, Account)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 16.dp)
+                .align(Alignment.TopCenter),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text("👤", fontSize = 18.sp)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = "CloudPlay",
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontWeight = FontWeight.Black,
+                        letterSpacing = (-0.5).sp
+                    ),
+                    color = Color.White
+                )
+            }
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                AssistChip(
+                    onClick = onSelectApi,
+                    label = { Text(apiName, fontSize = 12.sp, fontWeight = FontWeight.SemiBold) },
+                    colors = AssistChipDefaults.assistChipColors(
+                        containerColor = Color.Black.copy(alpha = 0.45f),
+                        labelColor = Color.White
+                    ),
+                    border = null
+                )
+
+                IconButton(
+                    onClick = onAccount,
+                    modifier = Modifier
+                        .size(36.dp)
+                        .clip(CircleShape)
+                        .background(Color.Black.copy(alpha = 0.45f))
+                ) {
+                    Text("👤", fontSize = 16.sp)
+                }
+            }
         }
     }
 }
 
 @Composable
-fun HeroPreviewCarousel(items: List<LoadResponse>, onItemClick: (LoadResponse) -> Unit) {
-    LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+fun ContinueWatchingSection(items: List<SearchResponse>, onItemClick: (SearchResponse) -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
     ) {
-        items(items) { item ->
-            ElevatedCard(
-                shape = RoundedCornerShape(20.dp),
-                modifier = Modifier
-                    .width(280.dp)
-                    .height(160.dp)
-                    .clickable { onItemClick(item) },
-                colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
-            ) {
-                Box(modifier = Modifier.fillMaxSize()) {
-                    if (!item.posterUrl.isNullOrEmpty()) {
-                        AsyncImage(
-                            model = item.posterUrl,
-                            contentDescription = item.name,
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier.fillMaxSize()
-                        )
-                    }
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(
-                                Brush.verticalGradient(
-                                    colors = listOf(Color.Transparent, Color.Black.copy(alpha = 0.85f)),
-                                    startY = 50f
-                                )
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                text = "Continue Watching on CloudPlay",
+                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                color = MaterialTheme.colorScheme.onBackground
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text("›", fontSize = 22.sp, color = MaterialTheme.colorScheme.onBackground)
+        }
+        Spacer(modifier = Modifier.height(12.dp))
+
+        LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            items(items) { item ->
+                ElevatedCard(
+                    shape = RoundedCornerShape(16.dp),
+                    modifier = Modifier
+                        .width(200.dp)
+                        .height(118.dp)
+                        .clickable { onItemClick(item) },
+                    colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+                ) {
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        if (!item.posterUrl.isNullOrEmpty()) {
+                            AsyncImage(
+                                model = item.posterUrl,
+                                contentDescription = item.name,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier.fillMaxSize()
                             )
-                    )
-                    Text(
-                        text = item.name,
-                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                        color = Color.White,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier
-                            .align(Alignment.BottomStart)
-                            .padding(12.dp)
-                    )
+                        }
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(
+                                    Brush.verticalGradient(
+                                        colors = listOf(Color.Transparent, Color.Black.copy(alpha = 0.8f))
+                                    )
+                                )
+                        )
+                        Row(
+                            modifier = Modifier
+                                .align(Alignment.BottomStart)
+                                .padding(10.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "▶",
+                                fontSize = 12.sp,
+                                color = Color.White
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = item.name ?: "",
+                                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
+                                color = Color.White,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -306,12 +473,16 @@ fun HeroPreviewCarousel(items: List<LoadResponse>, onItemClick: (LoadResponse) -
 
 @Composable
 fun HomeSection(title: String, items: List<SearchResponse>, onClick: (SearchResponse) -> Unit) {
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+    ) {
         Text(
             text = title,
             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.padding(bottom = 8.dp)
+            modifier = Modifier.padding(bottom = 10.dp)
         )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             items(items) { item ->
