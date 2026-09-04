@@ -357,8 +357,10 @@ class HomeViewModel : ViewModel() {
                         }
                     }
 
-                    val items = data.value.mapNotNull { it?.items }.flatten()
+                    // Post main page content immediately so UI renders categories without delay
+                    _page.postValue(Resource.Success(expandable))
 
+                    val items = data.value.mapNotNull { it?.items }.flatten()
 
                     previewResponses.clear()
                     previewResponsesAdded.clear()
@@ -375,15 +377,15 @@ class HomeViewModel : ViewModel() {
                                 context?.filterSearchResultByFilmQuality(currentList.shuffled())
                                     ?: currentList.shuffled()
 
+                            _randomItems.postValue(randomItems)
+                            currentShuffledList = randomItems
+
                             updatePreviewResponses(
                                 previewResponses,
                                 previewResponsesAdded,
                                 randomItems,
                                 3
                             )
-
-                            _randomItems.postValue(randomItems)
-                            currentShuffledList = randomItems
                         }
                     }
                     if (previewResponses.isEmpty()) {
@@ -396,7 +398,6 @@ class HomeViewModel : ViewModel() {
                     } else {
                         _preview.postValue(Resource.Success((previewResponsesAdded.size < currentShuffledList.size) to previewResponses))
                     }
-                    _page.postValue(Resource.Success(expandable))
                 } catch (e: Exception) {
                     _randomItems.postValue(emptyList())
                     logError(e)

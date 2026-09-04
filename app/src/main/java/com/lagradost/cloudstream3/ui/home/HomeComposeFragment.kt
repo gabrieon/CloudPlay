@@ -43,6 +43,15 @@ import com.lagradost.cloudstream3.ui.search.SEARCH_ACTION_PLAY_FILE
 import com.lagradost.cloudstream3.ui.search.SearchClickCallback
 import com.lagradost.cloudstream3.ui.search.SearchHelper
 
+data class HeroItem(
+    val name: String,
+    val posterUrl: String?,
+    val apiName: String,
+    val url: String,
+    val typeName: String,
+    val rawItem: Any
+)
+
 class HomeComposeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by activityViewModels()
     private var bottomSheetDialog: BottomSheetDialog? = null
@@ -64,136 +73,162 @@ class HomeComposeFragment : Fragment() {
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background
                     ) {
-                        Box(modifier = Modifier.fillMaxSize()) {
-                            LazyColumn(
+                        val isPageLoading = pageState.value is Resource.Loading
+
+                        if (isPageLoading) {
+                            // Single unified loading screen for fast feedback
+                            Box(
                                 modifier = Modifier.fillMaxSize(),
-                                contentPadding = PaddingValues(bottom = 90.dp)
+                                contentAlignment = Alignment.Center
                             ) {
-                                // Apple TV Style Hero Banner Section
-                                item {
-                                    when (val prev = previewState.value) {
-                                        is Resource.Success -> {
-                                            val responses = prev.value.second
-                                            if (responses.isNotEmpty()) {
-                                                AppleTvHeroBanner(
-                                                    items = responses,
-                                                    apiName = homeViewModel.apiName.value ?: "Provider",
-                                                    onSelectApi = {
-                                                        requireContext().selectHomepage(homeViewModel.apiName.value) { api ->
-                                                            homeViewModel.loadAndCancel(api, forceReload = true, fromUI = true)
+                                CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+                            }
+                        } else {
+                            // Derive Hero items instantly from detailed preview or fallback search responses
+                            val detailedPreviews = (previewState.value as? Resource.Success)?.value?.second
+                            val fallbackSearchItems = randomState.value
+                                ?: (pageState.value as? Resource.Success)?.value?.values?.flatMap { it.list.list }?.distinctBy { it.url }
+
+                            val heroItems = remember(detailedPreviews, fallbackSearchItems) {
+                                if (!detailedPreviews.isNullOrEmpty()) {
+                                    detailedPreviews.take(5).map { loadResp ->
+                                        HeroItem(
+                                            name = loadResp.name,
+                                            posterUrl = loadResp.posterUrl,
+                                            apiName = loadResp.apiName,
+                                            url = loadResp.url,
+                                            typeName = loadResp.type.name,
+                                            rawItem = loadResp
+                                        )
+                                    }
+                                } else if (!fallbackSearchItems.isNullOrEmpty()) {
+                                    fallbackSearchItems.take(5).map { searchResp ->
+                                        HeroItem(
+                                            name = searchResp.name ?: "",
+                                            posterUrl = searchResp.posterUrl,
+                                            apiName = searchResp.apiName ?: "",
+                                            url = searchResp.url,
+                                            typeName = searchResp.type?.name ?: "Featured",
+                                            rawItem = searchResp
+                                        )
+                                    }
+                                } else {
+                                    emptyList()
+                                }
+                            }
+
+                            Box(modifier = Modifier.fillMaxSize()) {
+                                LazyColumn(
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentPadding = PaddingValues(bottom = 90.dp)
+                                ) {
+                                    // Apple TV Style Hero Banner Section
+                                    if (heroItems.isNotEmpty()) {
+                                        item {
+                                            AppleTvHeroBanner(
+                                                items = heroItems,
+                                                apiName = homeViewModel.apiName.value ?: "Provider",
+                                                onSelectApi = {
+                                                    requireContext().selectHomepage(homeViewModel.apiName.value) { api ->
+                                                        homeViewModel.loadAndCancel(api, forceReload = true, fromUI = true)
+                                                    }
+                                                },
+                                                onAccount = { activity?.showAccountSelectLinear() },
+                                                onHeroClick = { heroItem ->
+                                                    val rootView = requireActivity().window.decorView
+                                                    when (val raw = heroItem.rawItem) {
+                                                        is LoadResponse -> {
+                                                            val loadCb = LoadClickCallback(0, rootView, -1, raw)
+                                                            homeViewModel.click(loadCb)
                                                         }
-                                                    },
-                                                    onAccount = { activity?.showAccountSelectLinear() },
-                                                    onPlayClick = { loadResp ->
+                                                        is SearchResponse -> {
+                                                            SearchHelper.handleSearchClickCallback(
+                                                                SearchClickCallback(SEARCH_ACTION_LOAD, rootView, -1, raw)
+                                                            )
+                                                        }
+                                                    }
+                                                }
+                                            )
+                                        }
+                                    }
+
+                                    // Continue Watching Row (Apple TV Style)
+                                    item {
+                                        val continueItems = resumeState.value
+                                        if (!continueItems.isNullOrEmpty()) {
+                                            Spacer(modifier = Modifier.height(16.dp))
+                                            ContinueWatchingSection(
+                                                items = continueItems,
+                                                onItemClick = { item ->
+                                                    val rootView = requireActivity().window.decorView
+                                                    SearchHelper.handleSearchClickCallback(
+                                                        SearchClickCallback(SEARCH_ACTION_PLAY_FILE, rootView, -1, item)
+                                                    )
+                                                }
+                                            )
+                                        }
+                                    }
+
+                                    // Homepage Categories
+                                    when (val ps = pageState.value) {
+                                        is Resource.Success -> {
+                                            val map = ps.value
+                                            items(map.entries.toList()) { entry ->
+                                                Spacer(modifier = Modifier.height(20.dp))
+                                                HomeSection(
+                                                    title = entry.key,
+                                                    items = entry.value.list.list,
+                                                    onClick = { item ->
                                                         val rootView = requireActivity().window.decorView
-                                                        val loadCb = LoadClickCallback(0, rootView, -1, loadResp)
-                                                        homeViewModel.click(loadCb)
+                                                        val action = if (item is com.lagradost.cloudstream3.utils.DataStoreHelper.ResumeWatchingResult) SEARCH_ACTION_PLAY_FILE else SEARCH_ACTION_LOAD
+                                                        SearchHelper.handleSearchClickCallback(
+                                                            SearchClickCallback(action, rootView, -1, item)
+                                                        )
                                                     }
                                                 )
                                             }
                                         }
-                                        is Resource.Loading -> {
-                                            Box(
-                                                modifier = Modifier
-                                                    .fillMaxWidth()
-                                                    .height(380.dp),
-                                                contentAlignment = Alignment.Center
-                                            ) {
-                                                CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+                                        is Resource.Failure -> {
+                                            item {
+                                                Card(
+                                                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                                                    modifier = Modifier
+                                                        .fillMaxWidth()
+                                                        .padding(16.dp)
+                                                ) {
+                                                    Text(
+                                                        text = "Error: ${ps.errorString}",
+                                                        color = MaterialTheme.colorScheme.onErrorContainer,
+                                                        modifier = Modifier.padding(16.dp)
+                                                    )
+                                                }
                                             }
                                         }
                                         else -> {}
                                     }
                                 }
 
-                                // Continue Watching Row (Apple TV Style)
-                                item {
-                                    val continueItems = resumeState.value
-                                    if (!continueItems.isNullOrEmpty()) {
-                                        Spacer(modifier = Modifier.height(16.dp))
-                                        ContinueWatchingSection(
-                                            items = continueItems,
-                                            onItemClick = { item ->
+                                // Floating Random Action Button
+                                val showRandom = randomState.value?.isNotEmpty() == true
+                                if (showRandom) {
+                                    ExtendedFloatingActionButton(
+                                        onClick = {
+                                            val pick = randomState.value?.distinctBy { it.url }?.randomOrNull()
+                                            pick?.let { item ->
                                                 val rootView = requireActivity().window.decorView
                                                 SearchHelper.handleSearchClickCallback(
-                                                    SearchClickCallback(SEARCH_ACTION_PLAY_FILE, rootView, -1, item)
+                                                    SearchClickCallback(SEARCH_ACTION_LOAD, rootView, -1, item)
                                                 )
                                             }
-                                        )
+                                        },
+                                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                                        modifier = Modifier
+                                            .align(Alignment.BottomEnd)
+                                            .padding(16.dp)
+                                    ) {
+                                        Text("Random Pick", fontWeight = FontWeight.SemiBold)
                                     }
-                                }
-
-                                // Homepage Categories
-                                when (val ps = pageState.value) {
-                                    is Resource.Success -> {
-                                        val map = ps.value
-                                        items(map.entries.toList()) { entry ->
-                                            Spacer(modifier = Modifier.height(20.dp))
-                                            HomeSection(
-                                                title = entry.key,
-                                                items = entry.value.list.list,
-                                                onClick = { item ->
-                                                    val rootView = requireActivity().window.decorView
-                                                    val action = if (item is com.lagradost.cloudstream3.utils.DataStoreHelper.ResumeWatchingResult) SEARCH_ACTION_PLAY_FILE else SEARCH_ACTION_LOAD
-                                                    SearchHelper.handleSearchClickCallback(
-                                                        SearchClickCallback(action, rootView, -1, item)
-                                                    )
-                                                }
-                                            )
-                                        }
-                                    }
-                                    is Resource.Loading -> {
-                                        item {
-                                            Box(
-                                                modifier = Modifier
-                                                    .fillMaxWidth()
-                                                    .height(200.dp),
-                                                contentAlignment = Alignment.Center
-                                            ) {
-                                                CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
-                                            }
-                                        }
-                                    }
-                                    is Resource.Failure -> {
-                                        item {
-                                            Card(
-                                                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
-                                                modifier = Modifier
-                                                    .fillMaxWidth()
-                                                    .padding(16.dp)
-                                            ) {
-                                                Text(
-                                                    text = "Error: ${ps.errorString}",
-                                                    color = MaterialTheme.colorScheme.onErrorContainer,
-                                                    modifier = Modifier.padding(16.dp)
-                                                )
-                                            }
-                                        }
-                                    }
-                                    else -> {}
-                                }
-                            }
-
-                            // Floating Random Action Button
-                            val showRandom = randomState.value?.isNotEmpty() == true
-                            if (showRandom) {
-                                ExtendedFloatingActionButton(
-                                    onClick = {
-                                        val pick = randomState.value?.distinctBy { it.url }?.randomOrNull()
-                                        pick?.let { item ->
-                                            val rootView = requireActivity().window.decorView
-                                            SearchHelper.handleSearchClickCallback(
-                                                SearchClickCallback(SEARCH_ACTION_LOAD, rootView, -1, item)
-                                            )
-                                        }
-                                    },
-                                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                                    modifier = Modifier
-                                        .align(Alignment.BottomEnd)
-                                        .padding(16.dp)
-                                ) {
-                                    Text("Random Pick", fontWeight = FontWeight.SemiBold)
                                 }
                             }
                         }
@@ -232,11 +267,11 @@ class HomeComposeFragment : Fragment() {
 
 @Composable
 fun AppleTvHeroBanner(
-    items: List<LoadResponse>,
+    items: List<HeroItem>,
     apiName: String,
     onSelectApi: () -> Unit,
     onAccount: () -> Unit,
-    onPlayClick: (LoadResponse) -> Unit
+    onHeroClick: (HeroItem) -> Unit
 ) {
     val pagerState = rememberPagerState(pageCount = { items.size })
 
@@ -294,7 +329,7 @@ fun AppleTvHeroBanner(
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "${item.apiName} • ${item.type.name}",
+                        text = "${item.apiName} • ${item.typeName}",
                         style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
                         color = Color.White.copy(alpha = 0.8f)
                     )
@@ -306,7 +341,7 @@ fun AppleTvHeroBanner(
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         Button(
-                            onClick = { onPlayClick(item) },
+                            onClick = { onHeroClick(item) },
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = Color.White,
                                 contentColor = Color.Black
@@ -318,7 +353,7 @@ fun AppleTvHeroBanner(
                         }
 
                         IconButton(
-                            onClick = { onPlayClick(item) },
+                            onClick = { onHeroClick(item) },
                             modifier = Modifier
                                 .size(44.dp)
                                 .clip(CircleShape)
