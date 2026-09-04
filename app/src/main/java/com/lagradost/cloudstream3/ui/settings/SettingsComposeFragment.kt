@@ -55,6 +55,7 @@ class SettingsComposeFragment : Fragment() {
                         LazyColumn(
                             modifier = Modifier
                                 .fillMaxSize()
+                                .statusBarsPadding()
                                 .padding(16.dp),
                             verticalArrangement = Arrangement.spacedBy(12.dp)
                         ) {

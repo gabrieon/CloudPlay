@@ -54,6 +54,7 @@ class LibraryComposeFragment : Fragment() {
                         Column(
                             modifier = Modifier
                                 .fillMaxSize()
+                                .statusBarsPadding()
                                 .padding(16.dp)
                         ) {
                             Row(

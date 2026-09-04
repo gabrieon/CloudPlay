@@ -389,7 +389,8 @@ fun AppleTvHeroBanner(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 16.dp)
+                .statusBarsPadding()
+                .padding(horizontal = 16.dp, vertical = 12.dp)
                 .align(Alignment.TopCenter),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween

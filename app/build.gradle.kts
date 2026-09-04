@@ -146,7 +146,7 @@ android {
         }
         debug {
             isDebuggable = true
-            applicationIdSuffix = ".debug"
+            signingConfig = signingConfigs.getByName("debug")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -161,14 +161,11 @@ android {
         }
         create("prerelease") {
             dimension = "state"
-            applicationIdSuffix = ".prerelease"
             if (signingConfigs.names.contains("prerelease")) {
                 signingConfig = signingConfigs.getByName("prerelease")
             } else {
-                logger.warn("No prerelease signing config!")
+                signingConfig = signingConfigs.getByName("debug")
             }
-            versionNameSuffix = "-PRE"
-            versionCode = (System.currentTimeMillis() / 60000).toInt()
         }
     }
 
